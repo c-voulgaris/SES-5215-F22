@@ -1,0 +1,45 @@
+---
+title: "Quantitative Methods for Urban Planners"
+subtitle: "GSD SES 5215, Fall 2022"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Course textbook
+
+[Regression and Other Stories](https://users.aalto.fi/~ave/ROS.pdf){target="_blank"}, but Gelman, Hill, and Vehtari
+
+## Course topics
+
+* Unit 1: Answering questions with quantitative methods
+    * [Lecture 1](https://c-voulgaris.github.io/SES-5215-F22/unit-1/lecture-1.html){target="_blank"}
+* Unit 2: Visualizing data
+* Unit 3: Hypothesis testing
+* Unit 4: Regression models
+* Unit 5: Multiple regression
+
+## Assignments
+
+* Assignment 1: Select a dataset
+* Assignment 2: Visualize data
+* Assignment 3: Test hypotheses
+* Assignment 4: Duplicate hypothesis tests with regression
+* Assignment 5: Estimate a multiple regression model
+
+## Final project
+
+For your final project, you will prepare a report with the 
+following sections:
+
+* Introduction: Present your research question, why it matters, and summarize
+the answer.
+* Data: Describe your data set.
+* Methods: Explain the methods you use to analyze your data.
+* Results: Present your results.
+* Discussion: Explain what your results mean (and what they cannot
+be interpretted to mean).
+* Conclusion: Summarize your research question and its answer, and discuss
+potential next steps.

@@ -1,0 +1,56 @@
+---
+title: "Lecture 1"
+subtitle: "Answering Questions with quantitative methods"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Types of quantitative research
+
+### Experimental
+
+* Controlled trials
+* Measure effects through hypothesis testing (simple regression)
+* Answer causal questions
+
+### Observational
+
+* Observation in the real world
+* Control for confounding variables using multiple regression
+* Answer yes/or no questions about relationships
+
+### Simulation
+
+* Generate alternative scenarios
+* Often based on relationships identified through regression
+* Offers a detailed and reasonable guess about counterfactuals and possible futures
+
+## Types of questions
+
+* *Normative questions:* What should we do?
+* *Positive questions:* What is happening in the world? 
+
+## In-class exercise
+
+Write a potential research topics on a pink sticky 
+note and stick it to the board, a wall, or a window. 
+
+Write your name and contact information on two different yellow 
+sticky notes. Walk around the room and choose two research 
+topics that interest you (one of them can be your own) and stick 
+your yellow note near it.
+
+## Datasets
+
+Here are some existing data sources that might inspire a research
+question.
+
+* [American Community Survey](https://www.census.gov/programs-surveys/acs){target="_blank"}
+* [United States Decennial Census](https://www.census.gov/programs-surveys/decennial-census/data.html){target="_blank"}
+* [US Census Bureau International Database](https://www.census.gov/programs-surveys/international-programs/about/idb.html){target="_blank"}
+* [IPUMS](https://www.ipums.org/){target="_blank"}
+* [GeoDa Data](https://geodacenter.github.io/data-and-lab/){target="_blank"}
+* [New York City Housing and Vacancy Survey](https://www.census.gov/data/datasets/2017/demo/nychvs/microdata.html){target="_blank"}
