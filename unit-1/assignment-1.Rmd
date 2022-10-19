@@ -110,8 +110,8 @@ rubric <- tibble(Item = c("Identification of a research question",
                                        2,"",
                                        2,"", 
                                        2,"",
-                                       7, "",
-                                       0,"",
+                                       2, "",
+                                       7,"",
                                        25))
 
 kable(rubric, format = "html")

@@ -17,18 +17,15 @@ knitr::opts_chunk$set(echo = TRUE)
 * Unit 1: Answering questions with quantitative methods
     * [Lecture 1](https://c-voulgaris.github.io/SES-5215-F22/unit-1/lecture-1.html){target="_blank"}
     * [Lecture 2](https://c-voulgaris.github.io/SES-5215-F22/unit-1/lecture-2.html){target="_blank"}
+    * [Assignment 1: Select a dataset](https://c-voulgaris.github.io/SES-5215-F22/unit-1/assignment-1.html){target="_blank"}
 * Unit 2: Visualizing data
+    * Assignment 2: Visulize data
 * Unit 3: Hypothesis testing
+    * Assignment 3: Test hypotheses
 * Unit 4: Regression models
+    * Assignment 4: Duplicate hypothesis tests with regression
 * Unit 5: Multiple regression
-
-## Assignments
-
-* Assignment 1: Select a dataset
-* Assignment 2: Visualize data
-* Assignment 3: Test hypotheses
-* Assignment 4: Duplicate hypothesis tests with regression
-* Assignment 5: Estimate a multiple regression model
+    * Estimate a multiple regression model
 
 ## Final project
 
