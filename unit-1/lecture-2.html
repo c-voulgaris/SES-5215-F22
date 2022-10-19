@@ -12,7 +12,7 @@
 
 
 
-<title>Quantitative Methods for Urban Planners</title>
+<title>Lecture 2</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -307,56 +307,97 @@ if (window.hljs) {
 
 
 
-<h1 class="title toc-ignore">Quantitative Methods for Urban
-Planners</h1>
-<h3 class="subtitle">GSD SES 5215, Fall 2022</h3>
+<h1 class="title toc-ignore">Lecture 2</h1>
+<h3 class="subtitle">Data and prediction</h3>
 
 
 
-<div id="course-textbook" class="section level2">
-<h2>Course textbook</h2>
-<p><a href="https://users.aalto.fi/~ave/ROS.pdf" target="_blank">Regression and Other Stories</a>, but Gelman, Hill, and
-Vehtari</p>
+<p>Prior to this lecture, you should have read Chapter 1 of <a href="https://users.aalto.fi/~ave/ROS.pdf" target="_blank">Regression
+and Other Stories</a>.</p>
+<div id="inference" class="section level2">
+<h2>Inference</h2>
+<p>Making general claims based on observations of specific data</p>
 </div>
-<div id="course-topics" class="section level2">
-<h2>Course topics</h2>
+<div id="variable-roles-in-regression" class="section level2">
+<h2>Variable “roles” in regression</h2>
 <ul>
-<li>Unit 1: Answering questions with quantitative methods
+<li>Outcome or dependent variable or or response</li>
+<li>Predictor(s) or independent variable(s)
 <ul>
-<li><a href="https://c-voulgaris.github.io/SES-5215-F22/unit-1/lecture-1.html" target="_blank">Lecture 1</a></li>
-<li><a href="https://c-voulgaris.github.io/SES-5215-F22/unit-1/lecture-2.html" target="_blank">Lecture 2</a></li>
+<li>Variable(s) of interest</li>
+<li>Control variable(s)</li>
 </ul></li>
-<li>Unit 2: Visualizing data</li>
-<li>Unit 3: Hypothesis testing</li>
-<li>Unit 4: Regression models</li>
-<li>Unit 5: Multiple regression</li>
 </ul>
 </div>
-<div id="assignments" class="section level2">
-<h2>Assignments</h2>
+<div id="types-of-variables" class="section level2">
+<h2>Types of variables</h2>
 <ul>
-<li>Assignment 1: Select a dataset</li>
-<li>Assignment 2: Visualize data</li>
-<li>Assignment 3: Test hypotheses</li>
-<li>Assignment 4: Duplicate hypothesis tests with regression</li>
-<li>Assignment 5: Estimate a multiple regression model</li>
+<li>Continuous variables</li>
+<li>Categorical variables</li>
+<li>Ordinal variables</li>
 </ul>
 </div>
-<div id="final-project" class="section level2">
-<h2>Final project</h2>
-<p>For your final project, you will prepare a report with the following
-sections:</p>
+<div id="characteristics-of-dataset" class="section level2">
+<h2>Characteristics of dataset</h2>
+<div id="unit-of-analysis" class="section level3">
+<h3>Unit of analysis</h3>
+<p>What does each row in your dataset represent?</p>
+<p><em>Ecological fallacy:</em> Drawing conclusions about individuals
+based on observations of the groups they belong to.</p>
 <ul>
-<li>Introduction: Present your research question, why it matters, and
-summarize the answer.</li>
-<li>Data: Describe your data set.</li>
-<li>Methods: Explain the methods you use to analyze your data.</li>
-<li>Results: Present your results.</li>
-<li>Discussion: Explain what your results mean (and what they cannot be
-interpretted to mean).</li>
-<li>Conclusion: Summarize your research question and its answer, and
-discuss potential next steps.</li>
+<li>The average income in a region might increase over a period of time,
+while the incomes of most individual residents decreased over that same
+period.</li>
+<li>Democratic presidential candidates in the United States are more
+likely to win in high-income states in low-income states, but
+lower-income voters are more likely to vote for Democratic candidates
+than higher-income voters are<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</li>
 </ul>
+<p>If you have <em>census tract data</em> you can answer this
+question:</p>
+<ul>
+<li><em>Do census tracts with higher median incomes have a greater
+proportion of residents with who commute by bicycle?</em></li>
+</ul>
+<p>But not this one:</p>
+<ul>
+<li><em>Are people with higher incomes more likely to commute by
+bicycle?</em></li>
+</ul>
+</div>
+<div id="sample-size" class="section level3">
+<h3>Sample size</h3>
+<p>How many units of your unit of analysis do you have.</p>
+<p><em><strong>i.e.</strong> How many rows are in your dataset</em></p>
+</div>
+<div id="population-of-interest" class="section level3">
+<h3>Population of interest</h3>
+<p>What is the population you want to generalize to? If you find a
+relationship within your dataset, what is the population that is not in
+your dataset for which you will conclude that relationship also
+holds?</p>
+</div>
+<div id="sampling-method" class="section level3">
+<h3>Sampling method</h3>
+<p>How did the units in your sample get included in your sample?</p>
+<ul>
+<li>Random sampling?</li>
+<li>Sample of convenience?</li>
+<li>Census (the entire population of interest is in your dataset)
+<ul>
+<li>In this case, you might still have a population of interest that
+represents the future, or hypothetical counterfactuals.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr />
+<ol>
+<li id="fn1"><p>Gelman, Andrew; Park, David; Shor, Boris; Bafumi,
+Joseph; Cortina, Jeronimo (2008). Red State, Blue State, Rich State,
+Poor State. Princeton University Press. ISBN 978-0-691-13927-2.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
 

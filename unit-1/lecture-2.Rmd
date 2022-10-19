@@ -1,0 +1,77 @@
+---
+title: "Lecture 2"
+subtitle: "Data and prediction"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Prior to this lecture, you should have read Chapter 1 of 
+[Regression and Other Stories](https://users.aalto.fi/~ave/ROS.pdf){target="_blank"}.
+
+
+## Inference 
+
+Making general claims based on observations of specific data
+
+## Variable "roles" in regression
+
+* Outcome or dependent variable or or response
+* Predictor(s) or independent variable(s)
+    * Variable(s) of interest
+    * Control variable(s)
+    
+## Types of variables
+
+* Continuous variables
+* Categorical variables
+* Ordinal variables
+
+## Characteristics of dataset
+
+### Unit of analysis
+
+What does each row in your dataset represent?
+
+*Ecological fallacy:* Drawing conclusions about individuals based on observations of the
+groups they belong to.
+
+* The average income in a region might increase over a period of time, while the incomes 
+of most individual residents decreased over that same period.
+* Democratic presidential candidates in the United States are more likely to win in 
+high-income states in low-income states, but lower-income voters are more likely to
+vote for Democratic candidates than higher-income voters are^[Gelman, Andrew; Park, David; Shor, Boris; Bafumi, Joseph; Cortina, Jeronimo (2008). Red State, Blue State, Rich State, Poor State. Princeton University Press. ISBN 978-0-691-13927-2.].
+
+If you have *census tract data* you can answer this question:
+
+* *Do census tracts with higher median incomes have a greater proportion of residents with who commute by bicycle?*
+
+But not this one:
+
+* *Are people with higher incomes more likely to commute by bicycle?*
+
+### Sample size
+
+How many units of your unit of analysis do you have.
+
+***i.e.** How many rows are in your dataset*
+
+### Population of interest
+
+What is the population you want to generalize to? If you find a relationship
+within your dataset, what is the population that is not in your dataset for
+which you will conclude that relationship also holds?
+
+### Sampling method
+
+How did the units in your sample get included in your sample?
+
+* Random sampling?
+* Sample of convenience?
+* Census (the entire population of interest is in your dataset)
+    * In this case, you might still have a population of interest that
+    represents the future, or hypothetical counterfactuals.
+
+

@@ -16,6 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 * Unit 1: Answering questions with quantitative methods
     * [Lecture 1](https://c-voulgaris.github.io/SES-5215-F22/unit-1/lecture-1.html){target="_blank"}
+    * [Lecture 2](https://c-voulgaris.github.io/SES-5215-F22/unit-1/lecture-2.html){target="_blank"}
 * Unit 2: Visualizing data
 * Unit 3: Hypothesis testing
 * Unit 4: Regression models

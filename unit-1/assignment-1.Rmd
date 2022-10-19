@@ -1,0 +1,119 @@
+---
+title: "Assignment 1"
+subtitle: "Identify a dataset"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+Find or assemble a dataset with
+
+* At least three continuous variables
+* At least one categorical (or ordinal variables)
+* Between 100 and 1 million observations
+
+Write out your answers to the following questions:
+
+1. What is the question you will seek to answer through your analysis 
+of the data?
+2. Which variable is your outcome/dependent/response variable? (Note: this *must* be a continuous variable) What does this variable represent?
+3. Which variables are continuous variables? What does each variable represent?
+4. Which variables are categorical or ordinal variables (specify which)? What does each variable represent? 
+5. What is your sample size?
+6. What is the sampling method?
+7. What is your population of interest?
+8. What is your unit of analysis?
+9. What is your data source?
+
+## Deliverable
+
+Submit a csv file with your dataset and a document with your answers to the above questions.
+
+## Grading criteria
+
+```{r, echo=FALSE, message=FALSE}
+library(knitr)
+library(tidyverse)
+
+rubric <- tibble(Item = c("Identification of a research question",
+                          "~",
+                          "Identification of an outcome variable",
+                          "~",
+                          "Identification of continuous variables",
+                          "~",
+                          "Identification of a categorical/ordinal variable",
+                          "~",
+                          "Statement of sample size",
+                          "~",
+                          "Description of sampling method",
+                          "~",
+                          "Identification of population of interest",
+                          "~",
+                          "Identification of unit of analysis",
+                          "~",
+                          "Identification of data source",
+                          "~",
+                          "Submission of dataset",
+                          "~",
+                          "Total"),
+                 `Half credit` = 
+                   c("Inconsistent with data",
+                     "~",
+                     "Misunderstanding of outcome variable meaning, inconsistent with research question, and/or not continuous",
+                     "~",
+                     "Not continuous variables, inconsistent with research question, inconsistent with data, and/or unclear description",
+                     "~",
+                     "Not categorical or ordinal variables, inconsistent with data, and/or unclear description",
+                     "~",
+                     "Inconsistent with data.",
+                     "~",
+                     "Unclear relationship between sample and population of interest",
+                     "~",
+                     "Unclear or unreasonable",
+                     "~",
+                     "Inconsistent with data",
+                     "~",
+                     "Unclear", 
+                     "~",
+                     "All or nothing, no half credit",
+                     "~",""),
+                 `Full credit` = c("Consistent with data",
+                                   "~",
+                                   "Clear understanding of outcome variable meaning,  consistent with research question, and variable is continuous",
+                                   "~",
+                                   "Continuous variables, consistent with research question and data, and clear description",
+                                   "~",
+                                   "Correctly identified categorical or ordinal variables, consistent with data, clear description",
+                                   "~",
+                                   "Consistent with data",
+                                   "~",
+                                   "Clear relationship between sample and population of interest",
+                                   "~",
+                                   "Clear and reasonable",
+                                   "~",
+                                   "Consistent with data",
+                                   "~",
+                                   "Clear",
+                                   "~",
+                                   "Submitted a dataset",
+                                   "~",
+                                   ""),
+                 `Possible points` = c(2, "",
+                                       2,"",
+                                       2,"",
+                                       2,"",
+                                       2,"",
+                                       2,"",
+                                       2,"", 
+                                       2,"",
+                                       7, "",
+                                       0,"",
+                                       25))
+
+kable(rubric, format = "html")
+```
+        

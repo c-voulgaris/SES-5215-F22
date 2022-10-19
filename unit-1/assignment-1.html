@@ -12,7 +12,7 @@
 
 
 
-<title>Quantitative Methods for Urban Planners</title>
+<title>Assignment 1</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -307,56 +307,352 @@ if (window.hljs) {
 
 
 
-<h1 class="title toc-ignore">Quantitative Methods for Urban
-Planners</h1>
-<h3 class="subtitle">GSD SES 5215, Fall 2022</h3>
+<h1 class="title toc-ignore">Assignment 1</h1>
+<h3 class="subtitle">Identify a dataset</h3>
 
 
 
-<div id="course-textbook" class="section level2">
-<h2>Course textbook</h2>
-<p><a href="https://users.aalto.fi/~ave/ROS.pdf" target="_blank">Regression and Other Stories</a>, but Gelman, Hill, and
-Vehtari</p>
-</div>
-<div id="course-topics" class="section level2">
-<h2>Course topics</h2>
+<div id="instructions" class="section level2">
+<h2>Instructions</h2>
+<p>Find or assemble a dataset with</p>
 <ul>
-<li>Unit 1: Answering questions with quantitative methods
-<ul>
-<li><a href="https://c-voulgaris.github.io/SES-5215-F22/unit-1/lecture-1.html" target="_blank">Lecture 1</a></li>
-<li><a href="https://c-voulgaris.github.io/SES-5215-F22/unit-1/lecture-2.html" target="_blank">Lecture 2</a></li>
-</ul></li>
-<li>Unit 2: Visualizing data</li>
-<li>Unit 3: Hypothesis testing</li>
-<li>Unit 4: Regression models</li>
-<li>Unit 5: Multiple regression</li>
+<li>At least three continuous variables</li>
+<li>At least one categorical (or ordinal variables)</li>
+<li>Between 100 and 1 million observations</li>
 </ul>
+<p>Write out your answers to the following questions:</p>
+<ol style="list-style-type: decimal">
+<li>What is the question you will seek to answer through your analysis
+of the data?</li>
+<li>Which variable is your outcome/dependent/response variable? (Note:
+this <em>must</em> be a continuous variable) What does this variable
+represent?</li>
+<li>Which variables are continuous variables? What does each variable
+represent?</li>
+<li>Which variables are categorical or ordinal variables (specify
+which)? What does each variable represent?</li>
+<li>What is your sample size?</li>
+<li>What is the sampling method?</li>
+<li>What is your population of interest?</li>
+<li>What is your unit of analysis?</li>
+<li>What is your data source?</li>
+</ol>
 </div>
-<div id="assignments" class="section level2">
-<h2>Assignments</h2>
-<ul>
-<li>Assignment 1: Select a dataset</li>
-<li>Assignment 2: Visualize data</li>
-<li>Assignment 3: Test hypotheses</li>
-<li>Assignment 4: Duplicate hypothesis tests with regression</li>
-<li>Assignment 5: Estimate a multiple regression model</li>
-</ul>
+<div id="deliverable" class="section level2">
+<h2>Deliverable</h2>
+<p>Submit a csv file with your dataset and a document with your answers
+to the above questions.</p>
 </div>
-<div id="final-project" class="section level2">
-<h2>Final project</h2>
-<p>For your final project, you will prepare a report with the following
-sections:</p>
-<ul>
-<li>Introduction: Present your research question, why it matters, and
-summarize the answer.</li>
-<li>Data: Describe your data set.</li>
-<li>Methods: Explain the methods you use to analyze your data.</li>
-<li>Results: Present your results.</li>
-<li>Discussion: Explain what your results mean (and what they cannot be
-interpretted to mean).</li>
-<li>Conclusion: Summarize your research question and its answer, and
-discuss potential next steps.</li>
-</ul>
+<div id="grading-criteria" class="section level2">
+<h2>Grading criteria</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+Item
+</th>
+<th style="text-align:left;">
+Half credit
+</th>
+<th style="text-align:left;">
+Full credit
+</th>
+<th style="text-align:left;">
+Possible points
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Identification of a research question
+</td>
+<td style="text-align:left;">
+Inconsistent with data
+</td>
+<td style="text-align:left;">
+Consistent with data
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Identification of an outcome variable
+</td>
+<td style="text-align:left;">
+Misunderstanding of outcome variable meaning, inconsistent with research
+question, and/or not continuous
+</td>
+<td style="text-align:left;">
+Clear understanding of outcome variable meaning, consistent with
+research question, and variable is continuous
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Identification of continuous variables
+</td>
+<td style="text-align:left;">
+Not continuous variables, inconsistent with research question,
+inconsistent with data, and/or unclear description
+</td>
+<td style="text-align:left;">
+Continuous variables, consistent with research question and data, and
+clear description
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Identification of a categorical/ordinal variable
+</td>
+<td style="text-align:left;">
+Not categorical or ordinal variables, inconsistent with data, and/or
+unclear description
+</td>
+<td style="text-align:left;">
+Correctly identified categorical or ordinal variables, consistent with
+data, clear description
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Statement of sample size
+</td>
+<td style="text-align:left;">
+Inconsistent with data.
+</td>
+<td style="text-align:left;">
+Consistent with data
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Description of sampling method
+</td>
+<td style="text-align:left;">
+Unclear relationship between sample and population of interest
+</td>
+<td style="text-align:left;">
+Clear relationship between sample and population of interest
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Identification of population of interest
+</td>
+<td style="text-align:left;">
+Unclear or unreasonable
+</td>
+<td style="text-align:left;">
+Clear and reasonable
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Identification of unit of analysis
+</td>
+<td style="text-align:left;">
+Inconsistent with data
+</td>
+<td style="text-align:left;">
+Consistent with data
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Identification of data source
+</td>
+<td style="text-align:left;">
+Unclear
+</td>
+<td style="text-align:left;">
+Clear
+</td>
+<td style="text-align:left;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Submission of dataset
+</td>
+<td style="text-align:left;">
+All or nothing, no half credit
+</td>
+<td style="text-align:left;">
+Submitted a dataset
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+~
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+25
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 
