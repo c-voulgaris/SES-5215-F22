@@ -28,6 +28,7 @@ of the data?
 7. What is your population of interest?
 8. What is your unit of analysis?
 9. What is your data source?
+10. (optional) Name any classmates you know of who are working on something similar.
 
 ## Deliverable
 
