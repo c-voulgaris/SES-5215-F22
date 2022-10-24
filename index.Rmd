@@ -19,7 +19,7 @@ knitr::opts_chunk$set(echo = TRUE)
     * [Lecture 2](https://c-voulgaris.github.io/SES-5215-F22/unit-1/lecture-2.html){target="_blank"}
     * [Assignment 1: Select a dataset](https://c-voulgaris.github.io/SES-5215-F22/unit-1/assignment-1.html){target="_blank"}
 * Unit 2: Visualizing data
-    * Assignment 2: Visulize data
+    * Assignment 2: Visualize data
 * Unit 3: Hypothesis testing
     * Assignment 3: Test hypotheses
 * Unit 4: Regression models

@@ -1,0 +1,25 @@
+---
+title: "Lecture 3"
+subtitle: "Reviewing a dataset"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Prior to this lecture, you should have completed a draft of
+[Assignment 1](https://c-voulgaris.github.io/SES-5215-F22/unit-1/assignment-1.html){target="_blank"}.
+
+## Small group review
+
+In pairs, go over your answers to questions 1 through 9 from Assignment 1
+and discuss any questions you weren't sure about.
+
+## Full-class discussion
+
+What were some particularly puzzling questions or challenges you 
+encountered in your small groups?
+
+We'll have a few class members share their answers to questions 1 though 9
+from Assignment 1.
