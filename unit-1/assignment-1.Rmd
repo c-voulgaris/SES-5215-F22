@@ -45,7 +45,11 @@ answers to the above questions. Submit your dataset as a csv file.
 
 ## Examples
 
-[Commuting example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a1-commuting.pdf){target="_blank"}
+These are examples of submissions that would receive full credit (if they are consistent with the 
+accompanying data sets).
+
+* [Commuting example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a1-commuting.pdf){target="_blank"}
+* [Crashes example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a1-crashes.pdf){target="_blank"}
 
 ## Grading criteria
 
