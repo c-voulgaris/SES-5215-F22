@@ -18,13 +18,18 @@ Find or assemble a dataset with
 
 Answer the following questions:
     
-1. Which variable is your outcome/dependent/response variable? (Note: this *must* be a continuous variable) What does this variable represent?
-2. Which variables are continuous variables? What does each variable represent?
-3. Which variables are categorical or ordinal variables (specify which)? What does each variable represent? 
-4. What is your sample size?
-5. What is the sampling method?
-6. What is your population of interest?
-7. What is your unit of analysis?
+1. What is your unit of analysis? One unit should correspond to one row in 
+your data set.
+2. What is your sample size? This is the number of units in your sample, and it should
+correspond to the number of rows in your data set.
+3. What is your population of interest? This should be a group in the same units as your 
+sample. It is the group you want to generalize to, based on your analysis of your 
+sample.
+4. What is your sampling method? How did units from your population of interest get 
+into your sample?
+5. Which variable is your outcome/dependent/response variable? (Note: this *must* be a continuous variable) What does this variable represent?
+6. Which variables are continuous variables? What does each variable represent?
+7. Which variables are categorical or ordinal variables (specify which)? What does each variable represent?
 8. What is your data source?
 9. (optional) Name any classmates you know of who are working on something similar.
 
