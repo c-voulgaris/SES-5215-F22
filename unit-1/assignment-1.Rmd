@@ -16,23 +16,31 @@ Find or assemble a dataset with
 * At least one categorical (or ordinal variables)
 * Between 100 and 1 million observations
 
-Write out your answers to the following questions:
+Answer the following questions:
+    
+1. Which variable is your outcome/dependent/response variable? (Note: this *must* be a continuous variable) What does this variable represent?
+2. Which variables are continuous variables? What does each variable represent?
+3. Which variables are categorical or ordinal variables (specify which)? What does each variable represent? 
+4. What is your sample size?
+5. What is the sampling method?
+6. What is your population of interest?
+7. What is your unit of analysis?
+8. What is your data source?
+9. (optional) Name any classmates you know of who are working on something similar.
 
-1. What is the question you will seek to answer through your analysis 
-of the data?
-2. Which variable is your outcome/dependent/response variable? (Note: this *must* be a continuous variable) What does this variable represent?
-3. Which variables are continuous variables? What does each variable represent?
-4. Which variables are categorical or ordinal variables (specify which)? What does each variable represent? 
-5. What is your sample size?
-6. What is the sampling method?
-7. What is your population of interest?
-8. What is your unit of analysis?
-9. What is your data source?
-10. (optional) Name any classmates you know of who are working on something similar.
+Write out a research question in the following form: 
+
+*"What is the effect of a* **[unit of analysis]***'s* **[variable(s) of interest]** *on its* 
+**[outcome variable]***, after accounting for the effects of* **[list of control variables]***?"*
 
 ## Deliverable
 
-Submit a csv file with your dataset and a document with your answers to the above questions.
+Submit a document with your research question (in the specified format) and your
+answers to the above questions. Submit your dataset as a csv file.
+
+## Examples
+
+Coming soon.
 
 ## Grading criteria
 
@@ -56,54 +64,49 @@ rubric <- tibble(Item = c("Identification of a research question",
                           "~",
                           "Identification of unit of analysis",
                           "~",
-                          "Identification of data source",
-                          "~",
-                          "Submission of dataset",
+                          "Identification of data source(s)",
                           "~",
                           "Total"),
                  `Half credit` = 
-                   c("Inconsistent with data",
+                   c("Does not follow the recommended format",
                      "~",
                      "Misunderstanding of outcome variable meaning, inconsistent with research question, and/or not continuous",
                      "~",
-                     "Not continuous variables, inconsistent with research question, inconsistent with data, and/or unclear description",
+                     "Not continuous variables, inconsistent with research question, and/or unclear description",
                      "~",
-                     "Not categorical or ordinal variables, inconsistent with data, and/or unclear description",
+                     "Not categorical or ordinal variables and/or unclear description",
                      "~",
-                     "Inconsistent with data.",
+                     "Not between 100 and 1,000,000",
                      "~",
                      "Unclear relationship between sample and population of interest",
                      "~",
                      "Unclear or unreasonable",
                      "~",
-                     "Inconsistent with data",
+                     "Inconsistent with research question",
                      "~",
                      "Unclear", 
-                     "~",
-                     "All or nothing, no half credit",
+
                      "~",""),
-                 `Full credit` = c("Consistent with data",
+                 `Full credit` = c("Follows recommended formal",
                                    "~",
                                    "Clear understanding of outcome variable meaning,  consistent with research question, and variable is continuous",
                                    "~",
-                                   "Continuous variables, consistent with research question and data, and clear description",
+                                   "Continuous variables, consistent with research question, and clear description",
                                    "~",
-                                   "Correctly identified categorical or ordinal variables, consistent with data, clear description",
+                                   "Correctly identified categorical or ordinal variables, clear description",
                                    "~",
-                                   "Consistent with data",
+                                   "Between 100 and 1,000,000",
                                    "~",
                                    "Clear relationship between sample and population of interest",
                                    "~",
                                    "Clear and reasonable",
                                    "~",
-                                   "Consistent with data",
+                                   "Consistent with research question",
                                    "~",
                                    "Clear",
                                    "~",
-                                   "Submitted a dataset",
-                                   "~",
                                    ""),
-                 `Possible points` = c(2, "",
+                 `Possible points` = c(9, "",
                                        2,"",
                                        2,"",
                                        2,"",
@@ -112,7 +115,6 @@ rubric <- tibble(Item = c("Identification of a research question",
                                        2,"", 
                                        2,"",
                                        2, "",
-                                       7,"",
                                        25))
 
 kable(rubric, format = "html")
