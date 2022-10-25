@@ -45,7 +45,7 @@ answers to the above questions. Submit your dataset as a csv file.
 
 ## Examples
 
-Coming soon.
+[Commuting example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a1-commuting.pdf){target="_blank"}
 
 ## Grading criteria
 
