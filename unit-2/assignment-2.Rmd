@@ -1,0 +1,108 @@
+---
+title: "Assignment 2"
+subtitle: "Visualizing data"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+Calculate the following values for each continuous variable in your 
+data set:
+
+* Average
+* Median
+* Standard deviation
+* Minimum
+* Maximum
+* 25th percentile
+* 75th percentile
+
+Create a figure that shows the distribution of each continuous variable.
+
+Create a figure that shows the share of each categorical variable in each category.
+
+Create a figure that shows the relationship of each independent continuous
+variable with your dependent (outcome) variable.
+
+Create a figure that shows the average value of your outcome variable within
+each category of each categorical variable.
+
+## Deliverable
+
+Submit a memo (as a PDF or html document) presenting and explaining your figures and 
+the results of your calculations.
+
+## Grading criteria
+
+```{r, echo=FALSE, message=FALSE}
+library(knitr)
+library(tidyverse)
+
+rubric <- tibble(Item = c("Calculated values",
+                          "~",
+                          "Distribution figures",
+                          "~",
+                          "Proportion figures",
+                          "~",
+                          "Continuous relationship figures",
+                          "~",
+                          "Average within category figures",
+                          "~",
+                          "Presentation of calculated values",
+                          "~",
+                          "Explanation of calculated values",
+                          "~",
+                          "Explanation of figures",
+                          "~",
+                          "Total"),
+                 `Half credit` = 
+                   c("Unreasonable values",
+                     "~",
+                     "Distribution not clear",
+                     "~",
+                     "Proportions not clear",
+                     "~",
+                     "Relationship not shown",
+                     "~",
+                     "Averages not illustrated",
+                     "~",
+                     "Values not clearly shown",
+                     "~",
+                     "Unclear explanation",
+                     "~",
+                     "Unclear explanation",
+                     "~",""),
+                 `Full credit` = c("Reasonable values",
+                                   "~",
+                                   "Clear illustration",
+                                   "~",
+                                   "Clear illustration",
+                                   "~",
+                                   "Clear illustration",
+                                   "~",
+                                   "Clear illustration",
+                                   "~",
+                                   "Clear presentation",
+                                   "~",
+                                   "Clear explanation",
+                                   "~",
+                                   "Clear explanation",
+                                   "~",
+                                   ""),
+                 `Possible points` = c(4, "",
+                                       3,"",
+                                       3,"",
+                                       3,"",
+                                       3,"",
+                                       3,"",
+                                       3,"", 
+                                       3,"",
+                                       25))
+
+kable(rubric, format = "html")
+```
+        

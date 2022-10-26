@@ -1,0 +1,489 @@
+---
+title: "Lecture 4"
+subtitle: "Visualizing and summarizing data"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Prior to this lecture, you should have read chapters 2 and 3 of
+[Regression and Other Stories](https://users.aalto.fi/~ave/ROS.pdf){target="_blank"}.
+
+## Always plot your data!
+
+All of these data sets have the same average and standard deviation for their
+x and y variables, and the same correlation between x and y.
+
+```{r, echo=FALSE, message=FALSE}
+library(tidyverse)
+library(here)
+library(cowplot)
+
+crashes <- here("Examples",
+                "crashes.csv") %>%
+  read_csv()
+
+commuting <- here("Examples",
+                "commuting.csv") %>%
+  read_csv() 
+
+play_data_extra <- tibble(A = rnorm(100, mean = 30, sd = 3), 
+                          B = rnorm(100, mean = 30, sd = 12),
+                          C = rnorm(100, mean = 100, sd = 3),
+                          D = rnorm(100, mean = 100, sd = 3))
+
+play_data <- tibble(A = rnorm(1000, mean = 30, sd = 3),
+                    B = rnorm(1000, mean = 30, sd = 12),
+                    C = rnorm(1000, mean = 30, sd = 3),
+                    D = rnorm(1000, mean = 30, sd = 3)) %>%
+  rbind(play_data_extra) %>%
+  mutate(E = rnorm(1100, mean = (min(D) + max(D) / 2), 
+                   sd = ((max(D) - min(D)) / 5))) %>%
+  mutate(E = case_when(E > max(D) ~ mean(D),
+                       E < min(D) ~ mean(D),
+                       TRUE ~ E))
+
+knitr::include_graphics("datasaurus.gif")
+```
+
+## Visualizing the distribution of a continuous variable
+
+A **histogram** is a common and useful way to visualize the distribution of a continuous
+variable. A histogram is a special bar chart where the categories along the x-axis
+are bins (i.e. ranges) of values for a variable, and the heigth of the bars indicates
+the number of observations within each bin.
+
+If you have a data set loaded into R as a data frame, you can quickly create a 
+histogram using the `geom_histogram()` function within `ggplot()`. In this example, 
+I have a data frame called `crashes` and one of the variables in that data frame is 
+called `crashes_per_km2`. The `bins` argument indicates the number of bins I want 
+in my histogram.
+
+```{r}
+ggplot(crashes) +
+  geom_histogram(aes(x = crashes_per_km2),
+                 color = "black",
+                 fill = "pink",
+                 bins = 30) +
+  theme_minimal()
+```
+
+You can also create a histogram in Excel. You need to define a set of threshold
+values for your bins, then use the "Histogram" tool in the "Data Analysis"
+toolpack, which you'll find on the "Data" ribbon if you've enabled it.
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics(here("unit-2",
+                             "excel-hist.gif"))
+```
+
+A jittered (or one-dimensional) scatter plot can be another good way to visualize 
+the distribution of a variable. Making your points very small (`size = 0.5`) and
+transparent (`alpha = 0.5`) can be helpful if you have a lot of points plotted
+on top of one another (a problem called overplotting).
+
+```{r}
+ggplot(crashes) +
+  geom_point(aes(x = crashes_per_km2, y = 0),
+             position = "jitter",
+             size = 0.5,
+             alpha = 0.5) +
+  scale_y_continuous(name = "",
+                     breaks = c()) +
+  theme_minimal() 
+```
+
+## Visualizing the relationship between two continuous variables
+
+A more typical use of a scatter plot is to visualize the relationship between two 
+continuous variables. In this example, I want to see the relationship between
+population density (people per square kilometer) and crash density (crashes
+per square kilometer). It is standard to have your outcome variable on the 
+y-axis.
+
+```{r}
+ggplot(crashes) +
+  geom_point(aes(x = ppl_per_km2, 
+                 y = crashes_per_km2),
+             size = 0.5,
+             alpha = 0.5) +
+  theme_minimal() 
+```
+
+
+It's straightforward to create a plot like this in Excel as well.
+
+By default, Excel will guess what values you want on your x and y axes, and 
+it sometimes guesses wrong. I recommend clearing out all the data series and
+adding in the one you want manually to be sure that you're plotting what you 
+think you're plotting.
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics(here("unit-2",
+                             "excel-scatter.gif"))
+```
+
+## Decribing continuous variables
+
+You can describe a continuous variable in terms of its **central tendency** and
+its **spread**.
+
+### Central tendency
+
+The most common measure of central tendency is an **average**, which is also called a **mean**.
+
+If you have a data set loaded into R as a data frame, you can calculate the average of
+one of the variables using the `mean()` function. In this example, I have a data frame
+called `crashes` and one of the variables in that data frame is called `crashes_per_km2`.
+
+```{r}
+mean(crashes$crashes_per_km2)
+```
+
+In Excel, you can use the AVERAGE() function.
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics(here("unit-2",
+                             "excel-average.png"))
+```
+
+One problem with using an average value to describe your data is that a single observation
+can have a big influence on the average if it has very high or very low values (we would
+describe this as an **outlier**). A **median** is an alternative measure of central 
+tendency. Half of the observations in your dataset have values below the median, and half 
+the values in your dataset have values above the median.
+
+You can calculate a median with the `median()` function in R or the MEDIAN() function in 
+Excel.
+
+Here are are histograms for two different variables with the same average and very
+different medians.
+
+```{r, echo=FALSE}
+hist_no_out <- ggplot(play_data) +
+  geom_histogram(aes(x = A), bins = 20, fill = "pink", color = "gray") +
+  scale_x_continuous(name = "Value of a variable",
+                     breaks = c(10, 20, 30, 40)) +
+  scale_y_continuous(name = "Count") +
+  annotate(geom = "text", x = 20, y = 159, hjust = 0,
+           label = paste0("Mean: ", 
+                          formatC(mean(play_data$A), format = "f", digits = 0),
+                          "\nMedian: ",
+                          formatC(median(play_data$A), format = "f", digits = 0))) +
+  theme_minimal()
+
+hist_out <- ggplot(play_data) +
+  geom_histogram(aes(x = C), bins = 100, fill = "pink", color = "gray") +
+  scale_x_continuous(name = "Value of a variable",
+                     breaks = seq(10, 110, by = 10)) +
+  scale_y_continuous(name = "Count") +
+  annotate(geom = "text", x = 20, y = 159, hjust = 0,
+           label = paste0("Mean: ", 
+                          formatC(mean(play_data$C), format = "f", digits = 0),
+                          "\nMedian: ",
+                          formatC(median(play_data$C), format = "f", digits = 0))) +
+  theme_minimal()
+
+plot_grid(hist_no_out, hist_out, nrow = 1, rel_widths = c(1, 3.5))
+```
+
+### Spread
+
+A common measure of spread for a continuous variable is its **standard deviation**.
+
+You can calculate a standard deviation using the `sd()` function in R, or the 
+STDEV.P() function in Excel.
+
+A smaller standard deviation means the values are less spread out. Here are 
+histograms for two variables that have the same mean, but different standard
+deviations.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+hist_skinny <- ggplot(play_data) +
+  geom_histogram(aes(x = A), bins = 40, fill = "pink", color = "gray") +
+  scale_x_continuous(name = "Value of a variable",
+                     limits = c(-10, 80),
+                     breaks = seq(-10, 80, by=10)) +
+  scale_y_continuous(name = "Count", 
+                     limits = c(0, 340),
+                     breaks = seq(0, 340, by = 20)) +
+  annotate(geom = "text", x = -5, y = 320, hjust = 0,
+           label = paste0("Mean: ", 
+                          formatC(mean(play_data$A), format = "f", digits = 0),
+                          "\nMedian: ",
+                          formatC(median(play_data$A), format = "f", digits = 0),
+                          "\nStandard deviation: ",
+                          formatC(sd(play_data$A), format = "f", digits = 0))) +
+  theme_minimal()
+
+hist_fat <- ggplot(play_data) +
+  geom_histogram(aes(x = B), bins = 40, fill = "pink", color = "gray") +
+  scale_x_continuous(name = "Value of a variable",
+                     limits = c(-10, 80),
+                     breaks = seq(-10, 80, by=10)) +
+  scale_y_continuous(name = "Count", 
+                     limits = c(0, 340),
+                     breaks = seq(0, 340, by = 20)) +
+  annotate(geom = "text", x = -5, y = 320, hjust = 0,
+           label = paste0("Mean: ", 
+                          formatC(mean(play_data$B), format = "f", digits = 0),
+                          "\nMedian: ",
+                          formatC(median(play_data$B), format = "f", digits = 0),
+                          "\nStandard deviation: ",
+                          formatC(sd(play_data$B), format = "f", digits = 0))) +
+  theme_minimal()
+
+plot_grid(hist_skinny, hist_fat, nrow = 1)
+```
+
+A standard deviation is related to the average difference between the value for an individual
+observation and the average value, and it is sensitive to outliers. A measure of spread that
+is less sensitive to outliers is the interquartile range, or the range of values between
+the 25th percentile (i.e. the value that 25 percent of your observations will be below) and the
+75th percentile (i.e the value that 75 percent of your observations will be above).
+
+In R, you can calculate percentile values using the `quantile()`. Here's how you
+would calculate the 25th, 50th, and 75th percentiles (the 50th percentile is the 
+median).
+
+```{r}
+quantile(crashes$crashes_per_km2, probs = c(0.25, 0.5, 0.75))
+```
+
+
+In Excel, you can calculate percentile values using PERCENTILE.INC().
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics(here("unit-2",
+                             "excel-pctile.png"))
+```
+
+Here are two distributions that are very different in terms of mean and standard deviation, 
+but similar in terms of median and interquartile range.
+
+```{r, echo=FALSE}
+hist_no_out <- ggplot(play_data) +
+  geom_histogram(aes(x = A), bins = 20, fill = "pink", color = "gray") +
+  scale_x_continuous(name = "Value of a variable",
+                     breaks = c(10, 20, 30, 40)) +
+  scale_y_continuous(name = "Count") +
+  annotate(geom = "text", x = 20, y = 159, hjust = 0, vjust = 1,
+           label = paste0("Mean: ", 
+                          formatC(mean(play_data$A), format = "f", digits = 0),
+                          "\nMedian: ",
+                          formatC(median(play_data$A), format = "f", digits = 0),
+                          "\nStandard\ndeviation: ",
+                          formatC(sd(play_data$A), format = "f", digits = 0),
+                          "\nInterquartile\nrange:\n",
+                          formatC(quantile(play_data$A, probs = c(0.25)), format = "f", digits = 0),
+                          " to ",
+                          formatC(quantile(play_data$A, probs = c(0.75)), format = "f", digits = 0))) +
+  theme_minimal()
+
+hist_out <- ggplot(play_data) +
+  geom_histogram(aes(x = C), bins = 100, fill = "pink", color = "gray") +
+  scale_x_continuous(name = "Value of a variable",
+                     breaks = seq(10, 110, by = 10)) +
+  scale_y_continuous(name = "Count") +
+  annotate(geom = "text", x = 20, y = 159, hjust = 0, vjust = 1,
+           label = paste0("Mean: ", 
+                          formatC(mean(play_data$C), format = "f", digits = 0),
+                          "\nMedian: ",
+                          formatC(median(play_data$C), format = "f", digits = 0),
+                          "\nStandard deviation: ",
+                          formatC(sd(play_data$C), format = "f", digits = 0),
+                          "\nInterquartile range: ",
+                          formatC(quantile(play_data$C, probs = c(0.25)), format = "f", digits = 0),
+                          " to ",
+                          formatC(quantile(play_data$C, probs = c(0.75)), format = "f", digits = 0))) +
+  theme_minimal()
+
+plot_grid(hist_no_out, hist_out, nrow = 1, rel_widths = c(1, 3.5))
+```
+
+One more measure of the spread of a variable that is very sensitive to outliers
+is the **range** of the data: the difference between the minumum and maximum
+values.
+
+You can calculate the minumum value of a variable using the `min()` function in 
+R or the MIN() function in Excel.
+
+You can also quickly get a summary of a variable's range, interquartile range,
+mean, and median using the `summary()` function in R.
+
+```{r}
+summary(crashes$crashes_per_km2)
+```
+
+Both standard deviation and range are sensitive to outliers and extreme
+values, but they don't measure the same property. Here are two distributions
+that have the same range, but different standard deviations.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+hist_2_mode <- ggplot(play_data) +
+  geom_histogram(aes(x = D), bins = 40, fill = "pink", color = "gray") +
+  scale_x_continuous(name = "Value of a variable") +
+  annotate(geom = "text", x = 20, y = 350, hjust = 0,
+           label = paste0("Standard deviation: ",
+                          formatC(sd(play_data$D), format = "f", digits = 0))) +
+  theme_minimal()
+
+hist_normal_comp <- ggplot(play_data) +
+  geom_histogram(aes(x = E), bins = 40, fill = "pink", color = "gray") +
+  scale_x_continuous(name = "Value of a variable") +
+  annotate(geom = "text", x = 20, y = 65, hjust = 0,
+           label = paste0("Standard deviation: ",
+                          formatC(sd(play_data$E), format = "f", digits = 0))) +
+  theme_minimal()
+
+plot_grid(hist_2_mode, hist_normal_comp, nrow = 1)
+```
+
+## Describing the distribution of a continuous variable
+
+In real life, it's common for variables to fall into histograms that are shaped
+kind of like a bell (a bell curve). This is so common, that we call it 
+a **normal distribution**. It looks something like this, with more values closer
+the the average value, and fewer values farther from the average. It's symmetrical in 
+the sense that values are as likely to be below average as above average (so the 
+median will be almost the same as the mean).
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(play_data) +
+  geom_histogram(aes(x = B), bins = 30, fill = "pink", color = "gray") +
+  scale_x_continuous(name = "Value of a variable") +
+  scale_y_continuous(name = "Count") +
+  theme_minimal()
+```
+
+The methods we discuss in this class are based on an assumption that your continuous variables 
+have an approximately normal distribution. Sometimes they don't. This one doesn't. 
+
+```{r, echo=FALSE}
+ggplot(crashes) +
+  geom_histogram(aes(x = crashes_per_km2),
+                 color = "gray",
+                 fill = "pink",
+                 bins = 20) +
+  theme_minimal()
+```
+
+When you have a lot of lower values and fewer higher values like this, you can call this 
+a left-skewed distribution (because there are more values on the left side of the 
+histogram than on the right). A left-skewed distribution might indicate a **log-normal** 
+distribution, where the logarithms of the values approximate a normal distribution better
+than the values themselves do.
+
+```{r, echo=FALSE}
+ggplot(crashes) +
+  geom_histogram(aes(x = log(crashes_per_km2)),
+                 color = "gray",
+                 fill = "pink",
+                 bins = 20) +
+  theme_minimal()
+```
+
+You might also have a **bi-modal** distribution like the one below. Where the
+histogram shows two distinct humps. This *might* suggest you have two different 
+populations (or categories) in your data, and you might need to account for that
+in your analysis somehow.
+
+```{r, echo=FALSE}
+ggplot(play_data) +
+  geom_histogram(aes(x = C), bins = 100, fill = "pink", color = "gray") +
+  scale_x_continuous(name = "Value of a variable") +
+  scale_y_continuous(name = "Count") +
+
+  theme_minimal()
+```
+
+
+## Summarizing a categorical variable
+
+Variation in a categorical variable is somewhat simpler. You've more or less
+described it fully when you've reported the proportion of your sample in 
+each category.
+
+If I have a data frame in R called `commuting`, with a variable called `mode` to indicate
+the typical mode of transportation to work, I can get the number of people
+who report using each mode like this:
+
+```{r}
+commuting %>%
+  group_by(mode) %>%
+  summarise(number = n())
+```
+
+And I can show that as the proportions by dividing by the total sample size (which
+would be the length of any of the data frame's columns).
+
+```{r}
+commuting %>%
+  group_by(mode) %>%
+  summarise(number = n()) %>%
+  mutate(proportion = number / length(commuting$mode)) 
+```
+
+I can do something similar in Excel using a pivot table:
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics(here("unit-2",
+                             "excel-pivot.gif"))
+```
+
+## Visualizing proportions
+
+### Bar charts
+
+A bar chart is a reasonable way to visualize proportions. You can create one
+in R using `geom_bar()`.
+
+```{r}
+commuting %>%
+  group_by(mode) %>%
+  summarise(number = n()) %>%
+  mutate(proportion = number / length(commuting$mode)) %>%
+  
+  ggplot() +
+    geom_bar(aes(x = mode, y = proportion),
+             stat = "identity") +
+    scale_y_continuous(breaks = breaks <- seq(0, 1, by = 0.1),
+                       labels = paste0(breaks * 100, "%")) +
+    theme_minimal()  
+```
+
+And you can do something similar in Excel.
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics(here("unit-2",
+                             "excel-bars.gif"))
+```
+
+When you have some very small categories, a tree map can be more legible than a 
+bar chart.
+
+```{r}
+library(treemapify)
+
+commuting %>%
+  group_by(mode) %>%
+  summarise(number = n()) %>%
+  mutate(proportion = number / length(commuting$mode)) %>%
+  
+  ggplot() +
+    geom_treemap(aes(area = proportion, fill = mode)) +
+    geom_treemap_text(aes(area = proportion, label = mode),
+                      color = "white") +
+    scale_fill_brewer(type = "qual", 
+                      guide = "none") # leave off the legend
+  
+```
+
+And you can do something similar in Excel.
+
+```{r, echo=FALSE, out.width="100%"}
+knitr::include_graphics(here("unit-2",
+                             "excel-tree-map.gif"))
+```
