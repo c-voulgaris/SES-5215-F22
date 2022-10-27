@@ -45,7 +45,7 @@ play_data <- tibble(A = rnorm(1000, mean = 30, sd = 3),
                        E < min(D) ~ mean(D),
                        TRUE ~ E))
 
-knitr::include_graphics("datasaurus.gif")
+knitr::include_graphics(here("datasaurus.gif"))
 ```
 
 ## Visualizing the distribution of a continuous variable
@@ -124,6 +124,46 @@ think you're plotting.
 knitr::include_graphics(here("unit-2",
                              "excel-scatter.gif"))
 ```
+
+The scatterplot above is for a dataset with 187 observations. Here is a scatterplot 
+for a dataset with over 800,000 observations.
+ 
+```{r}
+ggplot(commuting) +
+  geom_point(aes(x = INCTOT, 
+                 y = TRANTIME),
+             size = 0.5,
+             alpha = 0.5) +
+  theme_minimal() 
+```
+
+Overplotting is more of a problem in this case, and a heat map might be more legible.
+This divides the plot area into a grid, with variation in color representing the number
+of points within each grid cell.
+
+```{r}
+ggplot(commuting) +
+  geom_bin_2d(aes(x = INCTOT, 
+                 y = TRANTIME)) +
+  scale_fill_viridis_c() +
+  theme_minimal() 
+```
+
+You can also create a heat map from a hexagonal grid, which can sometimes 
+make patterns a little more legible.
+
+```{r}
+ggplot(commuting) +
+  geom_hex(aes(x = INCTOT, 
+                 y = TRANTIME)) +
+  scale_fill_viridis_c() +
+  theme_minimal() 
+```
+
+There isn't a simple way to produce this type of heat map in Excel, although 
+you could make something that looks a rectangular gridded heat map by using 
+through a combination of manually defined bins, a pivot table, and conditional 
+cell formatting.
 
 ## Decribing continuous variables
 
@@ -240,7 +280,7 @@ plot_grid(hist_skinny, hist_fat, nrow = 1)
 
 A standard deviation is related to the average difference between the value for an individual
 observation and the average value, and it is sensitive to outliers. A measure of spread that
-is less sensitive to outliers is the interquartile range, or the range of values between
+is less sensitive to outliers is the **interquartile range**, or the range of values between
 the 25th percentile (i.e. the value that 25 percent of your observations will be below) and the
 75th percentile (i.e the value that 75 percent of your observations will be above).
 
