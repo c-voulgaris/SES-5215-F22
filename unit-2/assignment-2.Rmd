@@ -25,12 +25,6 @@ Create a figure that shows the distribution of each continuous variable.
 
 Create a figure that shows the share of each categorical variable in each category.
 
-Create a figure that shows the relationship of each independent continuous
-variable with your dependent (outcome) variable.
-
-Create a figure that shows the average value of your outcome variable within
-each category of each categorical variable.
-
 ## Deliverable
 
 Submit a memo (as a PDF or html document) presenting and explaining your figures and 
@@ -48,8 +42,6 @@ rubric <- tibble(Item = c("Calculated values",
                           "~",
                           "Proportion figures",
                           "~",
-                          "Continuous relationship figures",
-                          "~",
                           "Average within category figures",
                           "~",
                           "Presentation of calculated values",
@@ -65,8 +57,6 @@ rubric <- tibble(Item = c("Calculated values",
                      "Distribution not clear",
                      "~",
                      "Proportions not clear",
-                     "~",
-                     "Relationship not shown",
                      "~",
                      "Averages not illustrated",
                      "~",
@@ -84,8 +74,6 @@ rubric <- tibble(Item = c("Calculated values",
                                    "~",
                                    "Clear illustration",
                                    "~",
-                                   "Clear illustration",
-                                   "~",
                                    "Clear presentation",
                                    "~",
                                    "Clear explanation",
@@ -93,14 +81,13 @@ rubric <- tibble(Item = c("Calculated values",
                                    "Clear explanation",
                                    "~",
                                    ""),
-                 `Possible points` = c(4, "",
-                                       3,"",
-                                       3,"",
-                                       3,"",
-                                       3,"",
-                                       3,"",
-                                       3,"", 
-                                       3,"",
+                 `Possible points` = c(5, "~",
+                                       3,"~",
+                                       3,"~",
+                                       3,"~",
+                                       3,"~",
+                                       4,"~", 
+                                       4,"~",
                                        25))
 
 kable(rubric, format = "html")
