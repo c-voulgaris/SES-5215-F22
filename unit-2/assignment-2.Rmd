@@ -30,6 +30,12 @@ Create a figure that shows the share of each categorical variable in each catego
 Submit a memo (as a PDF or html document) presenting and explaining your figures and 
 the results of your calculations.
 
+## Example
+
+This example would receive full credit.
+
+[Commuting example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a2-commuting.pdf){target="_blank"}
+
 ## Grading criteria
 
 ```{r, echo=FALSE, message=FALSE}
