@@ -2,6 +2,8 @@ library(tidyverse)
 library(sf)
 library(tidycensus)
 library(tigris)
+library(ggspatial)
+library(extrafont)
 
 MA_st_plane <- "+proj=lcc +lat_1=42.68333333333333 +lat_2=41.71666666666667 +lat_0=41 +lon_0=-71.5 +x_0=200000.0001016002 +y_0=750000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +to_meter=0.3048006096012192 +no_defs"
 
@@ -40,5 +42,70 @@ tracts <- tracts(state = "MA", county = "Suffolk") %>%
   select(med_ageE, ppl_per_km2, majority_poverty, crashes_per_km2) 
 
 ggplot(tracts) +
-  geom_sf(fill = "pink") +
-  geom_sf(data = boston, fill = NA, color = "red")
+  annotation_map_tile(type = "cartolight", zoomin = -1) +
+  geom_sf(fill = "orange", color = "gray", alpha = 0.5) +
+  theme_void()
+
+ggplot(tracts) +
+  geom_histogram(aes(x = crashes_per_km2),
+                 bins = 25,
+                 fill = "orange", color = "gray", alpha = 0.5) +
+  scale_x_continuous(name = "Crashes per square kilometer",
+                     trans = "log",
+                     breaks = breaks <- 10^seq(1, 5, by=0.5),
+                     labels = formatC(breaks, format = "f", digits = 0)) +
+  scale_y_continuous(name = "Number of census tracts") +
+  theme_minimal() +
+  theme(text = element_text(family = "Cambria"))
+
+ggplot(tracts) +
+  geom_histogram(aes(x = crashes_per_km2),
+                 bins = 25,
+                 fill = "orange", color = "gray", alpha = 0.5) +
+  scale_x_continuous(name = "Crashes per square kilometer") +
+  scale_y_continuous(name = "Number of census tracts") +
+  theme_minimal() +
+  theme(text = element_text(family = "Cambria"))
+
+ggplot(tracts) +
+  geom_histogram(aes(x = med_ageE),
+                 bins = 25,
+                 fill = "orange", color = "gray", alpha = 0.5) +
+  scale_x_continuous(name = "Median age (years)") +
+  scale_y_continuous(name = "Number of census tracts") +
+  theme_minimal() +
+  theme(text = element_text(family = "Cambria"))
+
+ggplot(tracts) +
+  geom_histogram(aes(x = ppl_per_km2),
+                 bins = 25,
+                 fill = "orange", color = "gray", alpha = 0.5) +
+  scale_x_continuous(name = "Population per square kilometer") +
+  scale_y_continuous(name = "Number of census tracts") +
+  theme_minimal() +
+  theme(text = element_text(family = "Cambria"))
+
+ggplot(tracts) +
+  geom_histogram(aes(x = ppl_per_km2),
+                 bins = 25,
+                 fill = "orange", color = "gray", alpha = 0.5) +
+  scale_x_continuous(name = "Population per square kilometer",
+                     trans = "log",
+                     breaks = breaks <- 5*10^seq(1, 5, by=1),
+                     labels = formatC(breaks, format = "f", digits = 0)) +
+  scale_y_continuous(name = "Number of census tracts") +
+  theme_minimal() +
+  theme(text = element_text(family = "Cambria"))
+
+ggplot(tracts) +
+  annotation_map_tile(type = "cartolight", zoomin = -1) +
+  geom_sf(alpha = 0.5,
+          aes(fill = majority_poverty), color = "gray") +
+  scale_fill_manual(name = "",
+                    values = c("orange",
+                               "green"),
+                    labels = c("Minority poverty",
+                               "Majority poverty")) +
+  ggthemes::theme_map() +
+  theme(text = element_text(family = "Cambria"),
+        legend.background = element_rect(fill = NA))

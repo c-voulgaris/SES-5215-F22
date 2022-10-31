@@ -32,9 +32,11 @@ the results of your calculations.
 
 ## Example
 
-This example would receive full credit.
+These examples would receive full credit.
 
 [Commuting example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a2-commuting.pdf){target="_blank"}
+
+[Crashes example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a2-crashes.pdf){target="_blank"}
 
 ## Grading criteria
 
