@@ -1,0 +1,30 @@
+---
+title: "Lecture 5"
+subtitle: "Review Assignment 2"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Prior to this lecture, you should have completed a draft of 
+[Assignment 2](https://c-voulgaris.github.io/SES-5215-F22/unit-2/assignment-2.html){target="_blank"}.
+
+Please upload your draft to this [Google Drive folder](https://drive.google.com/drive/folders/1f8pG5x47bU2lhBuUp4TppMtRX-kBGd-0?usp=sharing){target="_blank"}.
+
+## Review example submissions
+
+[Commuting example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a2-commuting.pdf){target="_blank"}
+
+[Crashes example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a2-crashes.pdf){target="_blank"}
+
+## Share drafts in small groups
+
+What insights can you gather from calculating descriptive statistics
+and visualizing distributions?
+
+## Share selected drafts with full class
+
+Students may volunteer to share their work, or I will select interesting
+examples.
