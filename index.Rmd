@@ -24,6 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
     * [Assignment 2: Visualize data](https://c-voulgaris.github.io/SES-5215-F22/unit-2/assignment-2.html){target="_blank"}
     * [Lecture 5](https://c-voulgaris.github.io/SES-5215-F22/unit-2/lecture-5.html){target="_blank"}
 * Unit 3: Hypothesis testing
+    * [Lecture 6](https://c-voulgaris.github.io/SES-5215-F22/unit-3/lecture-6-R.html){target="_blank"}
     * Assignment 3: Test hypotheses
 * Unit 4: Regression models
     * Assignment 4: Duplicate hypothesis tests with regression

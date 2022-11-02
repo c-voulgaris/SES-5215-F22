@@ -1,0 +1,267 @@
+---
+title: "Lecture 6"
+subtitle: "Hypothesis testing"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Prior to this lecture, you should have read chapter 4 of
+[Regression and Other Stories](https://users.aalto.fi/~ave/ROS.pdf){target="_blank"}.
+
+```{r, include=FALSE}
+library(here)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+
+commuting <- here("Examples",
+                "commuting.csv") %>%
+  read_csv() 
+
+commutes_100a <- here("Examples",
+                "commutes_100a.csv") %>%
+  read_csv() 
+
+commutes_100b <- commuting %>%
+  sample_n(100)
+
+commutes_100c <- commuting %>%
+  sample_n(100)
+
+commutes_100d <- commuting %>%
+  sample_n(100)
+
+commutes_5000 <- commuting %>%
+  sample_n(5000) %>%
+  filter(INCTOT > 0)
+```
+
+## Confidence intervals for means and proportions
+
+I have a data set of commute times based on a random sample of
+100 California households. Based on that
+sample, I can calculate an average commute time, but if I had sampled 
+a different set of 100 households from the same population, 
+I could have gotten a slightly different average. 
+
+All of these averages will tend to be clustered around the actual
+population average, even if none of them will be exactly equal
+to the population average. In fact, if I sampled 100 households a 
+whole bunch of times, the average of all those averages would be
+normally distributed, with an average at the population mean.
+
+A one-sample t-test uses the mean and standard deviation of a sample
+to calculate a confidence interval for the population mean - a range 
+of values that the the real average of the population probably falls within.
+
+You can also calculate confidence interval for the population mean in 
+Excel by following a couple steps. 
+
+First, you would calculate the standard deviation and average of your 
+sample data. Then, use the CONFIDENCE.T() function to calculate the 
+margin for the confidence interval using three arguments: alpha (one 
+minus the confidence level), the standard deviation, and the sample 
+size (in the example below, I use the COUNT() function to get the 
+sample size). The confidence interval is the sample mean, plus or 
+minus this value.
+
+```{r, echo=FALSE, out.width='100%'}
+here("unit-3",
+     "excel-conf-int.png") %>%
+  knitr::include_graphics()
+```
+
+## What influences the width of the confidence interval?
+
+Three things influence a the width of a confidence interval:
+
+* Larger samples -> Narrower confidence intervals
+* Less variation (smaller standard deviation) -> Narrower confidence intervals
+* Lower confidence -> Narrower confidence intervals. 95-percent confidence intervals are a widely-used standard. Note that several 
+examples in this lecture all use 90-percent confidence intervals,
+which are not standard.
+
+## Confidence intervals for proportions
+
+You can also use a one-sample t-test to calculate the confidence 
+interval for the proportion of the population that falls into a 
+category. Here is how I would find the 90 percent confidence interval 
+for the proportion of the population that commutes by car.
+
+```{r, echo=FALSE, out.width='100%'}
+here("unit-3",
+     "excel-proportion.gif") %>%
+  knitr::include_graphics()
+```
+
+## Average values within categories
+
+You can also calculate the 95-percent confidence interval for the 
+average within each of several categories.
+
+```{r, echo=FALSE, out.width='100%'}
+here("unit-3",
+     "excel-group-avg.gif") %>%
+  knitr::include_graphics()
+```
+
+In the example above, the 95-percent confidence interval for the
+commute time of those who drive to work is 25 to 36 minutes.
+In other words, we can be 95-percent confident that the average
+values for all car-commuters in the full population is within that range.
+
+Error bars can be a helpful way to visualize these 
+confidence intervals.
+
+```{r, echo=FALSE, out.width='100%'}
+here("unit-3",
+     "excel-error-bar.gif") %>%
+  knitr::include_graphics()
+```
+
+## Comparing means across categories
+
+If the population average within a category is a range rather
+than a single number, how do you compare the averages between two 
+groups?
+
+A two-sample t-test can tell us if there is a statistically
+significant difference in the averages between two categories.
+
+A **statistically significant difference** means we can have an 
+acceptable level of confidence (usually 95 percent confidence)
+that the two averages are not the same.
+
+Here is how you would calculate the difference in average travel time 
+between transit commuters and car commuters.
+
+```{r, echo=FALSE, out.width='100%'}
+here("unit-3",
+     "excel-diff-mean.gif") %>%
+  knitr::include_graphics()
+```
+
+This shows that the 95-percent confidence interval for the difference
+between the average travel time for drivers and the average travel time
+for transit riders is between negative 37 minutes and positive 7
+minutes. This interval includes zero. The result also shows a p-value of 
+0.16, meaning there is a 16 percent probability that there is no 
+difference in the means of these two groups.
+
+## Correlations
+
+The correlation between two continuous variables is a measure
+of how closely their scatter plot resembles a straight line or how
+well the value of one variable can predict the value of the other.
+Correlations can range from negative 1 (a downward-sloping 
+straight line) to positive 1 (an upward-sloping straight line).
+
+A correlation of zero means there is no (linear) relationship between the
+two variables.
+
+```{r, echo = FALSE, message=FALSE}
+library(faux)
+
+cor_data <- tibble(X = rnorm(n = 100, mean = 0, sd = 1)) %>%
+  mutate(Y = 10 - X) %>%
+  mutate(label = "r = -1\nR-square = 1")
+
+for (i in seq(-0.8, 0.8, by=0.2)) {
+  cor_data_next <- rnorm_multi(n = 100, 
+                               mu = c(0, 10),
+                               sd = c(1, 1),
+                               r = i, 
+                               varnames = c("X", "Y")) %>%
+    mutate(label = paste0("r = ", i, "\nR-square = ", i^2))
+  
+  cor_data <- rbind(cor_data, cor_data_next)
+}
+
+cor_data_next <- tibble(X = rnorm(n = 100, mean = 0, sd = 1)) %>%
+  mutate(Y = 10 + X) %>%
+  mutate(label = "r = 1\nR-square = 1")
+
+cor_data <- rbind(cor_data, cor_data_next) %>%
+  mutate(label = fct_inorder(label))
+
+ggplot(cor_data, aes(x=X, y=Y))+
+  geom_point(size = 0.2) +
+    facet_wrap(vars(label))
+```
+
+Remember that a variable with a log-normal distribution will have a lot of
+small values that are close together, and a few more spread-out larger values.
+
+Here is a scatter plot of two log-normally distributed variables.
+
+```{r, warning=FALSE, echo=FALSE}
+ggplot(commutes_5000) +
+  geom_point(aes(x = INCTOT, y = TRANTIME),
+             size = 0.1) +
+  theme_minimal()
+```
+
+And here is the same set of variables with the x- and y-axes on a log scale.
+
+```{r, warning=FALSE, echo=FALSE}
+ggplot(commutes_5000) +
+  geom_point(aes(x = INCTOT, y = TRANTIME),
+             size = 0.1) +
+  scale_x_continuous(trans = "log") +
+  scale_y_continuous(trans = "log") +
+  theme_minimal()
+```
+
+
+You'll find that the correlation between the two variables is less than the 
+correlation between the logs of the two variables.
+
+```{r, echo=FALSE, out.width='100%'}
+here("unit-3",
+     "excel-corr-log.gif") %>%
+  knitr::include_graphics()
+```
+
+This means that there is a relationship between these two variables, but it isn't
+a linear relationship.
+
+Here's a simpler (and more extreme) example. There is clearly a strong 
+relationship between these two variables, but the correlation between them
+is zero. When I transform X by squaring it, the correlation between Y and this
+transformed value is 1.
+
+```{r, echo=FALSE, out.width='100%'}
+here("unit-3",
+     "excel-corr-square.gif") %>%
+  knitr::include_graphics()
+```
+
+## Confidence intervals for correlations
+
+Just because there is a non-zero correlation between two variables in our sample, 
+that doesn't mean there would be a non-zero correlation between those variables 
+for our full sample. 
+
+There is no function in Excel that will return a confidence interval for the 
+correlation between two variables, but you can get a p-value for the correlation
+(the probability that the population correlation is zero) from a single-variable
+regression.
+
+```{r, echo=FALSE, out.width='100%'}
+here("unit-3",
+     "excel-corr-p-val.gif") %>%
+  knitr::include_graphics()
+```
+
+You'll often be less interested in the magnitude of the correlation than 
+in the sign. If the estimated value is positive and the p-value is less 
+than 0.05, I can be 95-percent confident that there is a positive relationship between
+the two variables (meaning that higher values of one are associated
+with higher values of the other). If the estimated value is negative
+and the p-value is less 
+than 0.05, I can be 95-percent confident that there is is a negative
+relationship between the two variables (meaning that higher values of one 
+are associated with lower values of the other).
