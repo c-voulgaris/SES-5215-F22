@@ -1,0 +1,41 @@
+---
+title: "Assignment 3"
+subtitle: "Testing for relationships"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+Select one of the categories of your categorical variable
+as the "reference category" (this will likely be the most
+common category in your sample). 
+
+Calculate a 95-percent confidence interval for the average value
+of your outcome variable within each category.
+
+Calculate the difference in means between the value of the 
+outcome variable in your reference category and the value
+of the outcome variable in each of the other categories.
+
+Calculate the correlation between each of your continuous
+variables and the outcome variable.
+
+## Deliverable
+
+Submit a memo (as a PDF or html document) presenting and explaining your 
+results. Include figures to illustrate your analysis as appropriate.
+
+## Examples
+
+These examples would receive full credit.
+
+Commuting example (coming soon)
+
+[Crashes example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a3-commuting.pdf){target="_blank"}
+
+
+        
