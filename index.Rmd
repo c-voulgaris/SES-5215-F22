@@ -25,7 +25,7 @@ knitr::opts_chunk$set(echo = TRUE)
     * [Lecture 5](https://c-voulgaris.github.io/SES-5215-F22/unit-2/lecture-5.html){target="_blank"}
 * Unit 3: Hypothesis testing
     * [Lecture 6](https://c-voulgaris.github.io/SES-5215-F22/unit-3/lecture-6-R.html){target="_blank"}
-    * Assignment 3: Test hypotheses
+    * [Assignment 3: Test for relationships](https://c-voulgaris.github.io/SES-5215-F22/unit-3/assignment-3.html){target="_blank"}
 * Unit 4: Regression models
     * Assignment 4: Duplicate hypothesis tests with regression
 * Unit 5: Multiple regression
