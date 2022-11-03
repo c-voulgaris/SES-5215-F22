@@ -15,7 +15,8 @@ as the "reference category" (this will likely be the most
 common category in your sample). 
 
 Calculate a 95-percent confidence interval for the average value
-of your outcome variable within each category.
+of your outcome variable within each category of your (or each) 
+categorical variable.
 
 Calculate the difference in means between the value of the 
 outcome variable in your reference category and the value
@@ -29,11 +30,9 @@ variables and the outcome variable.
 Submit a memo (as a PDF or html document) presenting and explaining your 
 results. Include figures to illustrate your analysis as appropriate.
 
-## Examples
+## Example
 
-These examples would receive full credit.
-
-Commuting example (coming soon)
+This example would receive full credit.
 
 [Crashes example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a3-commuting.pdf){target="_blank"}
 
