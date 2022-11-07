@@ -12,7 +12,7 @@ Prior to this lecture, you should have read chapter 4 of
 [Regression and Other Stories](https://users.aalto.fi/~ave/ROS.pdf){target="_blank"}.
 
 For an alternative version of this lecture with all the demonstrations
-in Excel, [see this link](){target="_blank"}.
+in Excel, [see this link](https://c-voulgaris.github.io/SES-5215-F22/unit-3/lecture-6-excel.html){target="_blank"}.
 
 ```{r, include=FALSE}
 library(here)
