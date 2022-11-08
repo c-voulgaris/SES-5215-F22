@@ -1,0 +1,27 @@
+---
+title: "Lecture 7"
+subtitle: "Review Assignment 3"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Prior to this lecture, you should have completed a draft of 
+[Assignment 3](https://c-voulgaris.github.io/SES-5215-F22/unit-3/assignment-3.html){target="_blank"}.
+
+Please upload your draft to this [Google Drive folder](https://drive.google.com/drive/folders/1f8pG5x47bU2lhBuUp4TppMtRX-kBGd-0?usp=sharing){target="_blank"}.
+
+## Review example submission
+
+[Commuting example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a2-crashes.pdf){target="_blank"}
+
+## Share drafts in small groups
+
+What did you learn from testing relationship? Any surprises?
+
+## Share selected drafts with full class
+
+Students may volunteer to share their work, or I will select interesting
+examples.

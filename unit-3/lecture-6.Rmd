@@ -1,0 +1,344 @@
+---
+title: "Lecture 6"
+subtitle: "Hypothesis testing"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Prior to this lecture, you should have read chapter 4 of
+[Regression and Other Stories](https://users.aalto.fi/~ave/ROS.pdf){target="_blank"}.
+
+```{r, include=FALSE}
+library(here)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+
+commuting <- here("Examples",
+                "commuting.csv") %>%
+  read_csv() 
+
+commutes_100a <- here("Examples",
+                "commutes_100a.csv") %>%
+  read_csv() 
+
+commutes_100b <- commuting %>%
+  sample_n(100)
+
+commutes_100c <- commuting %>%
+  sample_n(100)
+
+commutes_100d <- commuting %>%
+  sample_n(100)
+
+commutes_5000 <- commuting %>%
+  sample_n(5000) %>%
+  filter(INCTOT > 0)
+```
+
+## Confidence intervals for means and proportions
+
+I have a data set of commute times based on a random sample of
+100 California households. Based on that
+sample, I can calculate an average commute time.
+
+```{r}
+mean(commutes_100a$TRANTIME)
+```
+
+But if I had sampled a different set of 100 households from the same population, 
+I could have gotten a slightly different average. 
+
+```{r}
+mean(commutes_100b$TRANTIME)
+```
+
+```{r}
+mean(commutes_100c$TRANTIME)
+```
+
+```{r}
+mean(commutes_100d$TRANTIME)
+```
+
+All of these averages will tend to be clustered around the actual
+population average, even if none of them will be exactly equal
+to the population average. 
+
+A one-sample t-test uses the mean and standard deviation of a sample
+to calculate a confidence interval for the population mean - a range 
+of values that the the real average of the population probably falls within.
+
+Here is how you would get a 90-percent confidence interval for the 
+average commute time in R.
+
+```{r}
+t.test(commutes_100a$TRANTIME, conf.level = 0.9)
+```
+
+Look at the two values listed under `90 percent confidence interval:`.
+You can interpret that to mean that you can be 90 percent confident 
+that averate commute time for the full population
+would be between 26.7 and 35.5 minutes.
+
+You can also calculate confidence interval for the population mean in 
+Excel, but you'll need do do it in a couple steps. 
+
+First, you would calculate the standard deviation and average of your 
+sample data. Then, use the CONFIDENCE.T() function to calculate the 
+margin for the confidence interval using three arguments: alpha (one 
+minus the confidence level), the standard deviation, and the sample 
+size (in the example below, I use the COUNT() function to get the 
+sample size). The confidence interval is the sample mean, plus or 
+minus this value.
+
+```{r, echo=FALSE, out.width='100%'}
+here("unit-3",
+     "excel-conf-int.png") %>%
+  knitr::include_graphics()
+```
+
+## What influences the width of the confidence interval?
+
+Three things influence a the width of a confidence interval:
+
+* Larger samples -> Narrower confidence intervals
+* Less variation (smaller standard deviation) -> Narrower confidence intervals
+* Lower confidence -> Narrower confidence intervals. 95-percent confidence intervals are a widely-used standard. Note that several 
+examples in this lecture all use 90-percent confidence intervals,
+which are not standard.
+
+## Confidence intervals for proportions
+
+You can also use a one-sample t-test to calculate the confidence 
+interval for the proportion of the population that falls into a 
+category. Here is how I would find the 90 percent confidence interval 
+for the proportion of the population that commutes by car.
+
+```{r}
+t.test(commutes_100a$mode == "Car", conf.level = 0.9)
+```
+
+This result means I can be 90 percent confident that the share of 
+the full population that commutes by car is between 84 percent and
+94 percent.
+
+I can get a similar result in Excel.
+
+```{r, echo=FALSE, out.width='100%'}
+here("unit-3",
+     "excel-proportion.gif") %>%
+  knitr::include_graphics()
+```
+
+## Average values within categories
+
+You can use group_by() and get_summary_stats() in R to produce
+a table that gives an average value within each category, along
+with the 95-percent confidence interval for each average.
+
+```{r, message=FALSE}
+library(rstatix)
+
+income_by_mode <- commuting %>%
+  group_by(mode) %>%
+  get_summary_stats(INCTOT, type = "mean_ci") %>%
+  mutate(ci_low = mean - ci,
+         ci_hi = mean + ci)
+
+income_by_mode  %>%
+  kable(digits = 0) 
+```
+
+In the table above, the 95-percent confidence interval for the
+average income of those who bike to work is \$71,938 to \$75,037.
+In other words, we can be 95-percent confident that the average
+values for all cyclists in the full population is within that range.
+
+Error bars can be a helful way to visualize these 
+confidence intervals.
+
+```{r}
+ggplot(income_by_mode) +
+  geom_col(aes(x = mode, y = mean)) +
+  geom_errorbar(aes(x = mode,
+                    ymin = ci_low,
+                    ymax = ci_hi),
+                width = 0.2) +
+  scale_y_continuous(name = "Average income",
+                     breaks = breaks <- seq(0, 90000, 
+                                            by = 10000),
+                     labels = 
+                       paste0("$", 
+                              prettyNum(breaks,
+                                        big.mark = ","))) +
+  scale_x_discrete(name = "Usual mode of travel to work") +
+  theme_minimal()
+```
+
+## Comparing means across categories
+
+If the population average within a category is a range rather
+than a single number, how do you compare the averages between two 
+groups?
+
+A two-sample t-test can tell us if there is a statistically
+significant difference in the averages between two categories.
+
+A **statistically significant difference** means we can have an 
+acceptable level of confidence (usually 95 percent confidence)
+that the two averages are not the same.
+
+Here is how you would calculate the difference in average income
+between all possible pairs of mode categories.
+
+```{r, message=FALSE}
+library(rstatix)
+
+comp_income_by_mode <- commuting %>%
+  t_test(INCTOT ~ mode, detailed = TRUE, conf.level = 0.9)
+
+comp_income_by_mode  %>%
+  kable(digits = c(rep(0, 15), 3, 0)) %>%
+  scroll_box(width = "75%")
+```
+
+## Correlations
+
+The correlation between two continuous variables is a measure
+of how closely their scatter plot resembles a straight line or how
+well the value of one variable can predict the value of the other.
+Correlations can range from negative 1 (a downward-sloping 
+straight line) to positive 1 (an upward-sloping straight line).
+
+A correlation of zero means there is no (linear) relationship between the
+two variables.
+
+```{r, echo = FALSE, message=FALSE}
+library(faux)
+
+cor_data <- tibble(X = rnorm(n = 100, mean = 0, sd = 1)) %>%
+  mutate(Y = 10 - X) %>%
+  mutate(label = "r = -1\nR-square = 1")
+
+for (i in seq(-0.8, 0.8, by=0.2)) {
+  cor_data_next <- rnorm_multi(n = 100, 
+                               mu = c(0, 10),
+                               sd = c(1, 1),
+                               r = i, 
+                               varnames = c("X", "Y")) %>%
+    mutate(label = paste0("r = ", i, "\nR-square = ", i^2))
+  
+  cor_data <- rbind(cor_data, cor_data_next)
+}
+
+cor_data_next <- tibble(X = rnorm(n = 100, mean = 0, sd = 1)) %>%
+  mutate(Y = 10 + X) %>%
+  mutate(label = "r = 1\nR-square = 1")
+
+cor_data <- rbind(cor_data, cor_data_next) %>%
+  mutate(label = fct_inorder(label))
+
+ggplot(cor_data, aes(x=X, y=Y))+
+  geom_point(size = 0.2) +
+    facet_wrap(vars(label))
+```
+
+Remember that a variable with a log-normal distribution will have a lot of
+small values that are close together, and a few more spread-out larger values.
+
+Here is a scatter plot of two log-normally distributed variables.
+
+```{r, warning=FALSE}
+ggplot(commutes_5000) +
+  geom_point(aes(x = INCTOT, y = TRANTIME),
+             size = 0.1) +
+  theme_minimal()
+```
+
+And here is the same set of variables with the x- and y-axes on a log scale.
+
+```{r, warning=FALSE}
+ggplot(commutes_5000) +
+  geom_point(aes(x = INCTOT, y = TRANTIME),
+             size = 0.1) +
+  scale_x_continuous(trans = "log") +
+  scale_y_continuous(trans = "log") +
+  theme_minimal()
+```
+
+
+You'll find that the correlation between the two variables is less than the 
+correlation between the logs of the two variables.
+
+```{r}
+cor(commutes_5000$INCTOT, 
+    commutes_5000$TRANTIME)
+```
+
+```{r}
+cor(log(commutes_5000$INCTOT), 
+         log(commutes_5000$TRANTIME))
+```
+
+This means that there is a relationship between these two variables, but it isn't
+a linear relationship.
+
+Here's a simpler (and more extreme) example. There is clearly a strong 
+relationship between these two variables. 
+
+```{r, include=FALSE}
+square <- tibble(X = seq(-50, 50, by = 1)) %>%
+  mutate(Y = X^2)
+```
+
+```{r}
+ggplot(square) +
+  geom_point(aes(x = X, y = Y)) +
+  theme_minimal()
+```
+
+But the correlation between X and Y in the plot above is zero.
+
+```{r}
+cor(square$X, square$Y)
+```
+
+I can transform X by squaring it.
+
+```{r}
+ggplot(square) +
+  geom_point(aes(x = X^2, y = Y)) +
+  theme_minimal()
+```
+
+The correlation between X and Y was zero, but the correlation between the square of X
+and Y is 1.
+
+```{r}
+cor(square$X^2,
+    square$Y)
+```
+
+## Confidence intervals for correlations
+
+Just because there is a non-zero correlation between two variables in our sample, 
+that doesn't mean there would be a non-zero correlation between those variables 
+for our full sample. We can also calculate a confidence interval for a correlation.
+
+```{r}
+cor.test(log(commutes_5000$INCTOT), 
+         log(commutes_5000$TRANTIME))
+```
+
+You'll often be less interested in the magnitude of the correlation than 
+in the sign. If the entire confidence interval is positive, I can 
+be 95-percent confident that there is a positive relationship between
+the two variables (meaning that higher values of one are associated
+with higher values of the other). If the entire confidence interval
+is negative, I can be 95-percent confident that there is is a negative
+relationship between the two variables (meaning that higher values of one 
+are associated with lower values of the other).

@@ -234,7 +234,7 @@ plot_grid(hist_no_out, hist_out, nrow = 1, rel_widths = c(1, 3.5))
 A common measure of spread for a continuous variable is its **standard deviation**.
 
 You can calculate a standard deviation using the `sd()` function in R, or the 
-STDEV.P() function in Excel.
+STDEV.S() function in Excel.
 
 A smaller standard deviation means the values are less spread out. Here are 
 histograms for two variables that have the same mean, but different standard

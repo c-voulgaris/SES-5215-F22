@@ -57,9 +57,11 @@ counties <- counties(year = 2010) %>%
 ## Note that ridership appears to be boardings + alightings
 ## You might also need to note that this seems to include Amtrack bus service.
 
-ridership_url <- "https://explore.dot.gov/vizql/w/STSamtrak/v/Table/vudcsv/sessions/68D0E644D4D9435B89C626BCD6A3C8A4-1:0/views/14920515870136422130_17576232976373383193?showall=true&underlying_table_id=data_D885DA701A364D3E8F43641FF73BC70E&underlying_table_caption=Full%20Data"
+https://www.bts.dot.gov/browse-statistical-products-and-data/state-transportation-statistics/amtrak-ridership
+ridership_url <- "https://explore.dot.gov/vizql/w/STSamtrak/v/Table/vudcsv/sessions/FB09B191FA754F7E889985100222D981-1:0/views/14920515870136422130_17576232976373383193?summary=true"
 
-ridership <- read_csv(ridership_url) %>%
+ridership <- read_csv(ridership_url) 
+%>%
   # Only keep the data from 1 year (I'm using 2018 here because there are some
   # issues with a couple missing coordinates for later years)
   filter(`Fiscal Year` == 2018) %>%

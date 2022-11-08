@@ -4,6 +4,7 @@ library(tidycensus)
 library(tigris)
 library(ggspatial)
 library(extrafont)
+library(rstatix)
 
 MA_st_plane <- "+proj=lcc +lat_1=42.68333333333333 +lat_2=41.71666666666667 +lat_0=41 +lon_0=-71.5 +x_0=200000.0001016002 +y_0=750000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +to_meter=0.3048006096012192 +no_defs"
 
@@ -109,3 +110,57 @@ ggplot(tracts) +
   ggthemes::theme_map() +
   theme(text = element_text(family = "Cambria"),
         legend.background = element_rect(fill = NA))
+
+ggplot(tracts) +
+  geom_point(aes(x = med_ageE, y = crashes_per_km2)) +
+  scale_y_continuous(trans = "log",
+                     name = "Number of crashes per square kilometer",
+                     breaks = breaks <- 5*10^seq(1, 4, by = 1)) +
+  scale_x_continuous(name = "Median age within census tract") +
+  theme_minimal() +
+  theme(text = element_text(family = "Cambria"))
+
+cor.test(tracts$med_ageE, tracts$crashes_per_km2)
+cor.test(tracts$med_ageE, log(tracts$crashes_per_km2))
+
+ggplot(tracts) +
+  geom_point(aes(x = ppl_per_km2, y = crashes_per_km2)) +
+  scale_y_continuous(trans = "log",
+                     name = "Number of crashes per square kilometer",
+                     breaks = breaks <- 5*10^seq(1, 4, by = 1)) +
+  scale_x_continuous(trans = "log",
+                     name = "Population per square kilometer",
+                     breaks = breaks <- 10^seq(1, 4, by = 1),
+                     labels = prettyNum(breaks, big.mark = ",")) +
+  theme_minimal() +
+  theme(text = element_text(family = "Cambria"))
+
+cor.test(log(tracts$ppl_per_km2), log(tracts$crashes_per_km2))
+
+crashes_by_poverty <- tracts %>%
+  st_drop_geometry() %>%
+  group_by(majority_poverty) %>%
+  get_summary_stats(crashes_per_km2, type = "mean_ci") %>%
+  mutate(ci_low = mean - ci,
+         ci_hi = mean + ci)
+
+crashes_by_poverty
+
+ggplot(crashes_by_poverty) +
+  geom_col(aes(x = majority_poverty, y = mean),
+           fill = "orange", alpha = 0.5) +
+  geom_errorbar(aes(x = majority_poverty,
+                    ymin = ci_low,
+                    ymax = ci_hi),
+                width = 0.2) +
+  scale_x_discrete(name = "",
+                   labels = c("Majority above\npoverty level",
+                              "Majority below\npoverty level")) +
+  scale_y_continuous(name = "Average crashes per square kilometer") +
+  theme_minimal() +
+    theme(text = element_text(family = "Cambria"))
+  
+comp_crashes_by_poverty <- tracts %>%
+  t_test(crashes_per_km2 ~ majority_poverty, detailed = TRUE, conf.level = 0.95)
+ 
+comp_crashes_by_poverty

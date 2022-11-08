@@ -1,6 +1,6 @@
 ---
 title: "Assignment 2"
-subtitle: "Visualizing data"
+subtitle: "Describing data"
 output: tint::tintHtml
 ---
 
