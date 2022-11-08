@@ -1,0 +1,330 @@
+---
+title: "Lecture 8"
+subtitle: "Regression"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Prior to this lecture, you should have read chapter 7 of
+[Regression and Other Stories](https://users.aalto.fi/~ave/ROS.pdf){target="_blank"}.
+
+## Linear equations
+
+If there is a linear relationships between two variables, X and Y, then we can write the relationship
+between the variables as 
+
+$y = mx + b$
+
+Where m is the slope of the line (the increase in y associated with a one-unit increase in x) 
+and b is the y-intercept (the value of y when x is zero).
+
+If m (the slope) is 1 and b (the y-intercept) is zero, the equation would just be: 
+
+$y = x$ 
+
+and the line would look like this:
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+library(tidyverse)
+
+line <- tibble(x = c(0, 1, 2, 9)) %>%
+  mutate(y = x)
+
+ggplot(line) +
+  geom_line(aes(x=x, y=y)) +
+  scale_y_continuous(breaks = seq(0,9,by=1),
+                     limits = c(0,9)) +
+  scale_x_continuous(breaks = seq(0,9,by=1),
+                     limits = c(0,9)) +
+  theme_minimal()
+```
+
+If the slope is 2 (y increases by 2 for every one-unit increase in x) and the intercept
+is 3, the equation would be:
+
+$y = 2x + 3$
+
+And the line would look like this:
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+line <- tibble(x = c(0, 1, 2, 3)) %>%
+  mutate(y = 2*x +3)
+
+ggplot(line) +
+  geom_line(aes(x=x, y=y)) +
+  scale_y_continuous(breaks = seq(0,9,by=1),
+                     limits = c(0,9)) +
+  scale_x_continuous(breaks = seq(0,9,by=1),
+                     limits = c(0,9)) +
+  theme_minimal()
+```
+
+
+If the slope is 0.5 (y increases by 0.5 for every one-unit increase in x) and the intercept
+is 1, the equation would be:
+
+$y = 0.5x + 1$
+
+And the line would look like this:
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+line <- tibble(x = c(0, 1, 2, 9)) %>%
+  mutate(y = 0.5*x +1)
+
+ggplot(line) +
+  geom_line(aes(x=x, y=y)) +
+  scale_y_continuous(breaks = seq(0,9,by=1),
+                     limits = c(0,9)) +
+  scale_x_continuous(breaks = seq(0,9,by=1),
+                     limits = c(0,9)) +
+  theme_minimal()
+```
+
+
+**I'm going to refer to a slope as a coefficient from now on.**
+
+## Regression
+
+The goal of (linear) regression is to find a linear equation that would let you predict the
+value of one variable based on the value of another.
+
+Here is a scatterplot of a (simulated) dataset that shows how much time each student in a 
+class spent studying for a final exam on the x-axis and the score the student achieved 
+on the exam on the y-axis.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+test_scores <- here::here("unit-4",
+                    "test-score.csv") %>%
+  read_csv()
+
+ggplot(test_scores) +
+  geom_point(aes(x = `Time spent studying (minutes)`, y = `Exam score`)) +
+  theme_minimal()
+```
+
+I can imagine drawing a line through the middle of that cloud of points that would 
+approximate the relationship between studying and test scores.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+ggplot(test_scores) +
+  geom_point(aes(x = `Time spent studying (minutes)`, y = `Exam score`)) +
+  geom_line(aes(x = `Time spent studying (minutes)`, y = fitted),
+            color = "brown", size = 1) +
+  theme_minimal()
+```
+
+In fact, I could draw any number of alternative lines that would kind of go through 
+the middle of that cloud of points.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+ggplot(test_scores) +
+  geom_point(aes(x = `Time spent studying (minutes)`, y = `Exam score`)) +
+  geom_line(aes(x = `Time spent studying (minutes)`, y = fitted),
+            color = "brown", size = 1) +
+  geom_line(aes(x = `Time spent studying (minutes)`, y = fitted2),
+            color = "orange", size = 1) +
+  geom_line(aes(x = `Time spent studying (minutes)`, y = fitted3),
+            color = "darkgreen", size = 1) +
+  theme_minimal()
+```
+
+Which one of these lines best represents the relationship between time spent studying
+and exam scores?
+
+For any of these lines I drew, I could measure how well the line fits the data based 
+on the average vertical distance between the line and the points in my data set.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+test_model <- lm(`Exam score` ~ `Time spent studying (minutes)`,
+                 data = test_scores)
+
+test_scores <- test_scores %>%
+  mutate(fitted = test_model$fitted.values) 
+
+ggplot(test_scores,
+       aes(x = `Time spent studying (minutes)`, y = `Exam score`)) +
+  geom_line(aes(x = `Time spent studying (minutes)`, y = fitted),
+            color = "brown", size = 1) +
+  geom_linerange(aes(x = `Time spent studying (minutes)`,
+                     ymin = pmin(`Exam score`, fitted),
+                     ymax = pmax(`Exam score`, fitted)),
+                 color = "gray",
+                 size = 0.5,
+                 lty = "dashed") +
+  geom_point() +
+  theme_minimal()
+```
+
+The best-fitting line will be the one that minimizes the distance between
+the line and the observed data.
+
+A regression model will give us the equation of that line.
+
+## Estimating a regression model
+
+Here is how you would estimate a regression model in R that would predict the
+Exam score based on time spent studying (where both of these variables are
+included in a data set called `test_scores`). `lm()` stands for "linear model."
+
+```{r}
+test_model <- lm(`Exam score` ~ `Time spent studying (minutes)`,
+                 data = test_scores)
+```
+
+And here is how you would estimate the same model with the same data in Excel.
+
+
+```{r, echo=FALSE, out.width='100%'}
+here::here("unit-4",
+     "excel-regression.gif") %>%
+  knitr::include_graphics()
+```
+
+## Interpretting a regression model
+
+When you're interpretting a regression model, the values you are
+most interested in are (in order of importance):
+
+1. The overall model fit (R-squared and/or adjusted R-squared). This is a measure of
+how well your model fits the data. Higher values indicate better fit. It is most
+useful if you are comparing alternative models.
+2. The p-value associated with the coefficient. This tells you whether there is a 
+significant relationship between the predictor and the outcome (low values indicate
+significance at a higher confidence level).
+3. The sign of the coefficient. This tells you if the relationship is 
+positive or negative.
+4. The estimated value of the coefficient. This is the difference in the outcome 
+you would predict for every one-unit increase in the predictor.
+
+Here is where you find those values in the regression output from R:
+
+```{r, eval = FALSE}
+summary(test_model)
+```
+
+```{r, echo=FALSE, out.width='100%'}
+here::here("unit-4",
+     "R-regression.png") %>%
+  knitr::include_graphics()
+```
+
+And here is where you would find those values in Excel:
+
+```{r, echo=FALSE, out.width='100%'}
+here::here("unit-4",
+     "R-excel-output.png") %>%
+  knitr::include_graphics()
+```
+
+This result means that the equation for the line that best fits the data would be given
+by the equation:
+
+$Test score = 53.7 + 0.167(minutes of studying)$
+
+In other words (or rather, in words), you would expect a student who didn't study
+at all to get a score of 53.7 on the final exam, and each additional minute studying
+would be associated with an additional 0.167 points on the final exam. So if someone
+studied for 100 minutes, I would predict their score on the final exam would be
+53.7 plus 16.7, which would be 70.4.
+
+If I'm trying to make a decision about whether studying is a good idea or a bad idea, 
+I might not be too interested in predicting exactly what my test score will be. I just
+want to know whether studying helps. In that case, all I really need to know is that the 
+coefficent has a positive sign rather than a negative sign, and that the p-value is 
+quite low (so the relationship is significant). 
+
+Note that a regression with a continuous predictor variable gives you the same information
+as a correlation test. The correlation is the square root of the R-squared value and the
+p-value for the coefficient is the same as the p-value for the correlation.
+
+## Regression with a categorical predictor 
+
+You can also do a regression with a categorical predictor variable.
+
+Here is a scatter plot showing the observed test scores for students who studied 
+in the library, students who studied at home, and students who studied in a coffee shop.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+study_places <- read_csv(here::here("unit-4", "study-places.csv"))
+
+ggplot(study_places) +
+  geom_jitter(aes(x = study_place,
+                  y = score,
+                  color = study_place)) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+I can estimate a regression model to see if the place a student studies makes 
+a difference in their test score. When I say it makes a difference, I must be comparing
+it to something. The most common study location is "home", so I'll set that
+as my reference category.
+
+In R, the default is to interpret the "order" of your categorical variable values
+alphabetically, so the reference category will be the first one in the alphabet.
+If this is what you want, that's a cool coincidence. More commonly, you'll want your
+most common category to be the reference. The `fct_infreq()` function reorders your
+categories from most frequent to least frequent, which can be helpful.
+
+```{r}
+study_places <- study_places %>%
+  mutate(study_place = fct_infreq(study_place))
+```
+
+Now I can estimate a model that predicts test score based on study place.
+
+```{r}
+where_model <- lm(score ~ study_place,
+                  data = study_places)
+
+summary(where_model)
+```
+
+R had taken your categorical variable and essentially created a set of
+binary (i.e. true or false) variables based on the categories. The coefficient
+values are the estimated difference in means between each category and the
+reference category (the intercept is the average value within the reference
+category).
+
+The results shown above show a p-value that is less than 0.05 for
+both the library and coffee shop categories. This indicates that test scores 
+for students who studied in either of those places are significantly 
+different than the scores of students who studied at home. The coefficient
+for the library category is positive, meaning students who studied in the 
+library achieved higher scores than those who studied at home. The coefficent
+for the coffee shop category is negative, meaning students who studied 
+in a coffee shop had lower scores than those who studied at home. 
+
+To do the same analysis in Excel, you'll need to manually create the dummy 
+variables for each category (you don't need one for the reference category).
+
+```{r, echo=FALSE, out.width='100%'}
+here::here("unit-4",
+     "excel-dummy-vars.gif") %>%
+  knitr::include_graphics()
+```
+
+And then you can estimate a regression model that includes each of those
+binary variables as predictors.
+
+```{r, echo=FALSE, out.width='100%'}
+here::here("unit-4",
+     "excel-cat-regression.gif") %>%
+  knitr::include_graphics()
+```
+
+You'll see the same results that we got in R.
+
+```{r, echo=FALSE, out.width='100%'}
+here::here("unit-4",
+     "excel-output-cat.png") %>%
+  knitr::include_graphics()
+```
+
+You'll notice that you get exactly the same results from a regression
+with a single categorical predictor that you would get from a difference
+in means test (a two-sample t-test). 
+
