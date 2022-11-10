@@ -29,7 +29,7 @@ knitr::opts_chunk$set(echo = TRUE)
     * [Lecture 7](https://c-voulgaris.github.io/SES-5215-F22/unit-3/lecture-7.html){target="_blank"}
 * Unit 4: Regression models
     * [Lecture 8](https://c-voulgaris.github.io/SES-5215-F22/unit-4/lecture-8.html){target="_blank"}
-    * Assignment 4: Duplicate hypothesis tests with regression
+    * [Assignment 4: Duplicate hypothesis tests with regression](https://c-voulgaris.github.io/SES-5215-F22/unit-4/assignment-4.html){target="_blank"}
 * Unit 5: Multiple regression
     * Estimate a multiple regression model
 

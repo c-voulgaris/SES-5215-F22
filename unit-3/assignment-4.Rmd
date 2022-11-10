@@ -1,0 +1,30 @@
+---
+title: "Assignment 4"
+subtitle: "Regression with one predictor"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+For each predictor variable, estimate a linear regression model
+predicting the outcome variable. There should be one model for
+each predictor variable, and each model should include only one
+predictor variable.
+
+## Deliverable
+
+Submit a memo (as a PDF or html document) presenting and explaining your 
+results. 
+
+## Example
+
+This example would receive full credit.
+
+[Commuting example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a4-commuting.pdf){target="_blank"}
+
+
+        

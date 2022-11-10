@@ -120,3 +120,16 @@ ggplot() +
                     family = "Barlow Light", color = "white") +
   scale_fill_grey(guide = "none") +
   theme_minimal() 
+
+##
+model_income <- lm(log(TRANTIME) ~ log(INCTOT),
+                   data = people)
+summary(model_income)
+
+model_dens <- lm(log(TRANTIME) ~ log(pop_dens_km2),
+                   data = people)
+summary(model_dens)
+
+model_mode <- lm(log(TRANTIME) ~ fct_infreq(mode),
+                 data = people)
+summary(model_mode)
