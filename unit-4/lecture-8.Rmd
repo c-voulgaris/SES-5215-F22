@@ -165,8 +165,9 @@ A regression model will give us the equation of that line.
 
 ## Estimating a regression model
 
-Here is how you would estimate a regression model in R that would predict the
-Exam score based on time spent studying (where both of these variables are
+Here is how you would estimate a regression model in R that
+would predict the Exam score based on time spent studying 
+(where both of these variables are
 included in a data set called `test_scores`). `lm()` stands for "linear model."
 
 ```{r}
