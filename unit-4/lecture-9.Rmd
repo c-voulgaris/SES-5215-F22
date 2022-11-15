@@ -1,5 +1,5 @@
 ---
-title: "Lecture 7"
+title: "Lecture 9"
 subtitle: "Review Assignment 4"
 output: tint::tintHtml
 ---
