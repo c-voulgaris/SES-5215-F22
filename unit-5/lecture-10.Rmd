@@ -1,0 +1,131 @@
+---
+title: "Lecture 10"
+subtitle: "Multivariate Regression"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Prior to this lecture, you should have read chapter 10 of
+[Regression and Other Stories](https://users.aalto.fi/~ave/ROS.pdf){target="_blank"}.
+
+```{r, include=FALSE, eval=FALSE}
+library(tidyverse)
+library(here) 
+ 
+exam_data <- tibble(pretest = ceiling(rnorm(n = 500, mean = 70, sd = 7)),
+                    time_studying = ceiling(rnorm(n = 500, mean = 45, sd = 15)),
+                    instructor = c(rep("Jacobs", 154), 
+                                   rep("Moses", 172), 
+                                   rep("Krumholz", 174))) %>%
+  mutate(final_score = ceiling(
+           0.8*jitter(pretest) + 
+           0.4*jitter(time_studying) + 
+           10*(instructor == "Krumholz") + 
+           3*(instructor == "Jacobs") +
+           rnorm(n = 500, mean = 0, sd = 4))) %>%
+  mutate(final_score = ifelse(final_score > 100, 100, final_score)) %>%
+  mutate(time_studying = ifelse(time_studying < 0, 0, time_studying))
+
+here("Examples",
+     "test-scores.csv") %>%
+write_csv(x = exam_data, file = .)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+library(here) 
+
+exam_data <- here("Examples",
+                  "test-scores.csv") %>%
+  read_csv()
+```
+
+## Example data
+
+Five hundred students enrolled in a course. Students were randomly assigned to one of three
+instructors. Students took a pretest at the beginning of the term to test their initial 
+knowledge of the topic. Prior to taking the final exam, students were asked how much time
+they spent studying for the course each week.
+
+Here is a scatter plot showing the relationship to students' pretest scores and their 
+scores on the final exam:
+
+```{r, echo=FALSE}
+ggplot(exam_data) +
+  geom_point(aes(x = pretest,
+                 y = final_score)) +
+  scale_x_continuous(name = "Pre-test score") +
+  scale_y_continuous(name = "Final exam score") +
+  theme_minimal()
+```
+
+Here is a scatter plot showing the relationship between the amount of time students
+spent studying and their scores on the final exam:
+
+```{r, echo=FALSE}
+ggplot(exam_data) +
+  geom_point(aes(x = time_studying,
+                 y = final_score)) +
+  scale_x_continuous(name = "Self-reported time spent studying per week") +
+  scale_y_continuous(name = "Final exam score") +
+  theme_minimal()
+```
+
+Here are the student scores for each instructor, with average indicated by 
+horizonal lines.
+
+```{r, echo=FALSE}
+summary_by_instructor <- exam_data %>%
+  group_by(instructor) %>%
+  summarise(avg_final = mean(final_score))
+
+ggplot(data = exam_data, aes(x = 0, y=final_score)) +
+  geom_jitter() +
+  geom_hline(data = summary_by_instructor, 
+             aes(yintercept = avg_final))+
+  facet_grid(~instructor, switch = "both") +
+  scale_x_continuous(name = "") +
+  scale_y_continuous(name = "Final exam score") +
+  theme_minimal() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        axis.text.x = element_blank())
+```
+
+Higher test scores seem to be associated with more time spent studying, higher pretest 
+scores, and with being in Krumholz's class. 
+
+## Estimating a multiple regression model
+
+Let's predict final exam scores based on pretest scores, weekly time spent
+studying, and instructor.
+
+```{r, echo=FALSE, out.width='100%'}
+here::here("unit-5",
+     "excel-multi-regression.gif") %>%
+  knitr::include_graphics()
+```
+
+```{r}
+model <- lm(final_score ~ pretest + time_studying + instructor,
+            data = exam_data)
+```
+
+You'll get the same results in R as in Excel:
+
+```{r}
+summary(model)
+```
+
+```{r, echo=FALSE, out.width='100%'}
+here::here("unit-5",
+     "excel-regression.png") %>%
+  knitr::include_graphics()
+```
+
+Each coefficient represents the change in the outcome (test score) that 
+would be predicted based on a one-unit change in the associated predictor,
+**if all other variables in the model were held constant**.
