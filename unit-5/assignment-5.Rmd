@@ -1,0 +1,31 @@
+---
+title: "Assignment 5"
+subtitle: "Multiple linear regression"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Instructions
+
+Estimate one linear regression model that predicts the value of your
+outcome variable based on all of your predictor variables (at least
+two continuous predictors and at least one categorical predictor).
+
+## Deliverable
+
+Submit a memo (as a PDF or html document) presenting and explaining your 
+results. 
+
+## Example
+
+These examples would receive full credit.
+
+[Commuting example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a5-commuting.pdf){target="_blank"}
+
+[Crashes example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a5-crashes.pdf){target="_blank"}
+
+
+        
