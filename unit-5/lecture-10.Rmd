@@ -74,8 +74,8 @@ ggplot(exam_data) +
   theme_minimal()
 ```
 
-Here are the student scores for each instructor, with average indicated by 
-horizonal lines.
+Here are the student scores for each instructor, with 
+average values indicated by horizonal lines.
 
 ```{r, echo=FALSE}
 summary_by_instructor <- exam_data %>%
