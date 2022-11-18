@@ -46,6 +46,6 @@ the answer.
 * Methods: Explain the methods you use to analyze your data.
 * Results: Present your results.
 * Discussion: Explain what your results mean (and what they cannot
-be interpretted to mean).
+be interpreted to mean).
 * Conclusion: Summarize your research question and its answer, and discuss
 potential next steps.
