@@ -25,7 +25,8 @@ PUMAs <- pumas(state = "CA") %>%
 people <- here("Examples",
                "usa_00006.csv.gz") %>%
   read_csv() %>%
-  filter(TRANTIME > 0) %>%
+  filter(TRANTIME > 0,
+         INCTOT > 0) %>%
   left_join(PUMAs)  %>%
   mutate(mode = case_when(TRANWORK == 10 ~ "Car",
                           TRANWORK == 20 ~ "Other",
@@ -133,3 +134,9 @@ summary(model_dens)
 model_mode <- lm(log(TRANTIME) ~ fct_infreq(mode),
                  data = people)
 summary(model_mode)
+
+full_model <- lm(log(TRANTIME) ~ log(INCTOT) + 
+                   log(pop_dens_km2) + 
+                   fct_infreq(mode),
+                   data = people)
+summary(full_model)
