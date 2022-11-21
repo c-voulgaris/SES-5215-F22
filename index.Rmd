@@ -32,8 +32,9 @@ knitr::opts_chunk$set(echo = TRUE)
     * [Assignment 4: Duplicate hypothesis tests with regression](https://c-voulgaris.github.io/SES-5215-F22/unit-3/assignment-4.html){target="_blank"}
     * [Lecture 9](https://c-voulgaris.github.io/SES-5215-F22/unit-4/lecture-9.html){target="_blank"}
 * Unit 5: Multiple regression
-    * [Lecture 8](https://c-voulgaris.github.io/SES-5215-F22/unit-5/lecture-10.html){target="_blank"}
+    * [Lecture 10](https://c-voulgaris.github.io/SES-5215-F22/unit-5/lecture-10.html){target="_blank"}
     * [Assignment 5: Estimate a multiple regression model](https://c-voulgaris.github.io/SES-5215-F22/unit-5/assignment-5.html){target="_blank"}
+    * [Lecture 11](https://c-voulgaris.github.io/SES-5215-F22/unit-5/lecture-11.html){target="_blank"}
 
 ## Final project
 

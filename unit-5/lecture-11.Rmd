@@ -1,0 +1,24 @@
+---
+title: "Lecture 11"
+subtitle: "Multivariate Regression"
+output: tint::tintHtml
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Prior to this lecture, you should have completed a draft of 
+[Assignment 5](https://c-voulgaris.github.io/SES-5215-F22/unit-5/assignment-5.html){target="_blank"}.
+
+## Example of regression analysis
+
+### Course examples
+
+* [Crash example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a5-crashes.pdf){target="_blank"}
+* [Commuting example]((https://c-voulgaris.github.io/SES-5215-F22/Examples/a5-commuting.pdf){target="_blank"})
+
+### Published research
+
+* [Voulgaris 2020](https://c-voulgaris.github.io/SES-5215-F22/Examples/Voulgaris_2020.pdf){target="_blank"}
+* [Currie and Delbosc 2013](https://c-voulgaris.github.io/SES-5215-F22/Examples/Currie-Delbosc-2013.pdf){target="_blank")
