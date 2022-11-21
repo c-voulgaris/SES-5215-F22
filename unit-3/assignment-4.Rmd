@@ -26,5 +26,79 @@ This example would receive full credit.
 
 [Commuting example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a4-commuting.pdf){target="_blank"}
 
+## Rubric
 
+```{r, echo=FALSE, message=FALSE}
+library(knitr)
+library(tidyverse)
+
+rubric <- tibble(Item = c("Regression with first continuous variable",
+                          "~",
+                          "Interpretation of first regression coefficient",
+                          "~",
+                          "Interpretation of first regression model fit",
+                          "~",
+                          "Regression with second continuous variable",
+                          "~",
+                          "Interpretation of second regression coefficient",
+                          "~",
+                          "Interpretation of second regression model fit",
+                          "~",
+                          "Regression with categorical variable",
+                          "~",
+                          "Interpretation of categorical coefficients",
+                          "~",
+                          "Interpretation of categorical model fit",
+                          "~",
+                          "Total"),
+                 `Half credit` = 
+                   c("Unreasonable results",
+                     "~",
+                     "Unclear explanation",
+                     "~",
+                     "Unclear explanation",
+                     "~",
+                     "Unreasonable results",
+                     "~",
+                     "Unclear explanation",
+                     "~",
+                     "Unclear explanation",
+                     "~",
+                     "Unreasonable results",
+                     "~",
+                     "Unclear explanation",
+                     "~",
+                     "Unclear explanation",
+                     "~",""),
+                 `Full credit` = c("Reasonable results",
+                     "~",
+                     "Clear explanation",
+                     "~",
+                     "Clear explanation",
+                     "~",
+                     "Reasonable results",
+                     "~",
+                     "Clear explanation",
+                     "~",
+                     "Clear explanation",
+                     "~",
+                     "Reasonable results",
+                     "~",
+                     "Clear explanation",
+                     "~",
+                     "Clear explanation",
+                     "~",""),
+                 `Possible points` = c(2, "~",
+                                       3,"~",
+                                       3,"~",
+                                       2,"~",
+                                       3,"~", 
+                                       3,"~",
+                                       3,"~",
+                                       3,"~",
+                                       3,"~",
+                                       25))
+
+kable(rubric, format = "html")
+```
         
