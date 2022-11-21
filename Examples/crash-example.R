@@ -163,4 +163,6 @@ ggplot(crashes_by_poverty) +
 comp_crashes_by_poverty <- tracts %>%
   t_test(crashes_per_km2 ~ majority_poverty, detailed = TRUE, conf.level = 0.95)
  
-comp_crashes_by_poverty
+model <- lm(log(crashes_per_km2) ~ med_ageE + log(ppl_per_km2) + majority_poverty,
+            data = tracts)
+summary(model)

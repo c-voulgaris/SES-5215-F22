@@ -36,5 +36,65 @@ This example would receive full credit.
 
 [Crashes example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a3-commuting.pdf){target="_blank"}
 
+## Rubric
 
+```{r, echo=FALSE, message=FALSE}
+library(knitr)
+library(tidyverse)
+
+rubric <- tibble(Item = c("Average within each category",
+                          "~",
+                          "Explanation for category averages",
+                          "~",
+                          "Difference in means confidence interval",
+                          "~",
+                          "Explanation for difference in means",
+                          "~",
+                          "Correlation confidence interval",
+                          "~",
+                          "Explanation of correlation",
+                          "~",
+                          "Inclusion of appropriate figures",
+                          "~",
+                          "Total"),
+                 `Half credit` = 
+                   c("Unreasonable values",
+                     "~",
+                     "Unclear explanation",
+                     "~",
+                     "Unreasonable values",
+                     "~",
+                     "Unclear explanation",
+                     "~",
+                     "Unreasonable values",
+                     "~",
+                     "Unclear explanation",
+                     "~",
+                     "Figures are not relevant",
+                     "~",""),
+                 `Full credit` = c("Reasonable values",
+                     "~",
+                     "Clear explanation",
+                     "~",
+                     "Reasonable values",
+                     "~",
+                     "Clear explanation",
+                     "~",
+                     "Reasonable values",
+                     "~",
+                     "Clear explanation",
+                     "~",
+                     "Figures are relevant",
+                     "~",""),
+                 `Possible points` = c(3, "~",
+                                       4,"~",
+                                       3,"~",
+                                       4,"~",
+                                       3,"~", 
+                                       4,"~",
+                                       4,"~",
+                                       25))
+
+kable(rubric, format = "html")
+```
         
