@@ -27,5 +27,37 @@ These examples would receive full credit.
 
 [Crashes example](https://c-voulgaris.github.io/SES-5215-F22/Examples/a5-crashes.pdf){target="_blank"}
 
+## Grading criteria
 
+```{r, echo=FALSE, message=FALSE}
+library(knitr)
+library(tidyverse)
+
+rubric <- tibble(Item = c("Regression with at least three predictors",
+                          "~",
+                          "Interpretation of regression coefficients",
+                          "~",
+                          "Interpretation of model fit",
+                          "~",
+                          "Total"),
+                 `Half credit` = 
+                   c("Unreasonable results",
+                     "~",
+                     "Unclear explanation",
+                     "~",
+                     "Unclear explanation",
+                     "~",""),
+                 `Full credit` = c("Reasonable results",
+                     "~",
+                     "Clear explanation",
+                     "~",
+                     "Clear explanation",
+                     "~",""),
+                 `Possible points` = c(5, "~",
+                                       10,"~",
+                                       10,"~",
+                                       25))
+
+kable(rubric, format = "html")
+```
         
